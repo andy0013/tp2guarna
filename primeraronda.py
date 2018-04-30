@@ -36,6 +36,7 @@ def suma_intentos(jugador,jugadores):
     return jugadores[jugador][3]
 
 def acumula_valores(jugadores,acumulados):
+    """esta funcion acumula en cada partida los valores de jugadores se la paso a ignacio para que imprima los valores"""
 
     for jugador in jugadores:
         acumulados[jugador][0]+=1

@@ -81,7 +81,8 @@ def mostrar_posicion_marcar_letra(jugador,diccionarioJugador,letra):
 
 """
 Estas estructuras de datos jugadores y turnos son las que espero me envie andy e ignacio de las ramas 2 y 4
-
+se supone que los nombres no se repiten, yo agregaria esa verificacion en las primeras ramas cuando se cargan
+los nombres.
 Representan nombre,palabra a adivinar,aciertos,desaciertos,intentos,puntaje"""
 
 jugadores={'juan':['testing',0,0,0,0],'pedro':['escarapela',0,0,0,0]}

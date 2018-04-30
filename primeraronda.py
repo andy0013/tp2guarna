@@ -14,6 +14,9 @@ def incrementar_desaciertos(jugador,jugadores):
     jugadores[jugador][2]+=1
     return jugadores[jugador][2]
 
+def suma_aciertos(jugador,jugadores):
+    jugadores[jugador][1]+=1
+
 def resta_puntos(jugador,jugadores):
     """Esta funcion se utiliza para restar puntos a los jugadores"""
     puntaje=jugadores[jugador][4]
@@ -31,6 +34,14 @@ def suma_intentos(jugador,jugadores):
     """Esta funcion se utiliza para sumar los intentos"""
     jugadores[jugador][3]+=1
     return jugadores[jugador][3]
+
+def acumula_valores(jugadores,acumulados):
+
+    for jugador in jugadores:
+        acumulados[jugador][0]+=1
+        acumulados[jugador][1]+=jugadores[jugador][1]
+        acumulados[jugador][2]+=jugadores[jugador][2]
+        acumulados[jugador][3]+=jugadores[jugador][4]
 
 def letrasPorJugador(jugadores):
     """Esta funcion usa un diccionario-> diccionario-> lista para guardar las posiciones de las letras
@@ -88,6 +99,9 @@ Representan nombre,palabra a adivinar,aciertos,desaciertos,intentos,puntaje"""
 jugadores={'juan':['testing',0,0,0,0],'pedro':['escarapela',0,0,0,0]}
 turnos=['pedro','juan']
 
+"""Esta estructura acumula los valores cantidad de partidas,aciertos,desaciertos,puntaje General"""
+acumulados={'juan':[0,0,0,0],'pedro':[0,0,0,0]}
+
 diccionarioJugador={}
 ganoEljugador=False
 desaciertos=0
@@ -115,6 +129,7 @@ while (salir != True):
 
                 suma_puntos(jugador,jugadores,1)
                 intentos=suma_intentos(jugador,jugadores)
+                suma_aciertos(jugador,jugadores)
 
             else:
                 desaciertos=incrementar_desaciertos(jugador,jugadores)
@@ -139,8 +154,10 @@ while (salir != True):
     nuevaPartida=input("Quiere jugar una nueva partida?")
 
     if nuevaPartida in ["s","S","si","SI"]:
-        pass
-        """nueva_partida(jugadores)"""
+        acumula_valores(jugadores,acumulados)
+        print(acumulados)
+        print("juega nueva partida")
+        """nueva_partida(jugadores,acumulados)"""
 
     else:
         print("gracias por volar con LOS Nocheros")

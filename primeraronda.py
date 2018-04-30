@@ -1,11 +1,13 @@
 def datos_jugador(jugador,jugadores):
     """Esta funcion muestra los datos acumulados de los jugadores"""
+    palabra=jugadores[jugador][0]
     aciertos=jugadores[jugador][1]
     desaciertos=jugadores[jugador][2]
-    intentos=desaciertos=jugadores[jugador][3]
+    intentos=jugadores[jugador][3]
     puntaje=jugadores[jugador][4]
 
-    print("el jugador {0} tiene {1} aciertos, {2} desaciertos, {3} intentos y un puntaje de {3}".format(jugador,aciertos,desaciertos,intentos,puntaje))
+    print("el jugador {0} tiene {1} aciertos, {2} desaciertos, {3} intentos y un puntaje de {4}".format(jugador,aciertos,desaciertos,intentos,puntaje))
+    return palabra
 
 def incrementar_desaciertos(jugador,jugadores):
     """Esta funcion se utiliza para incrementar los desaciertos"""
@@ -25,29 +27,31 @@ def suma_puntos(jugador,jugadores,puntos):
     """Esta funcion se utiliza para sumar puntos a los jugadores puede ser un punto o 30 se pasa por parametro"""
     jugadores[jugador][4]+=puntos
 
-def suma_intentos():
+def suma_intentos(jugador,jugadores):
     """Esta funcion se utiliza para sumar los intentos"""
     jugadores[jugador][3]+=1
     return jugadores[jugador][3]
 
-def letrasPorJugador(jugador,jugadores):
+def letrasPorJugador(jugadores):
     """Esta funcion usa un diccionario-> diccionario-> lista para guardar las posiciones de las letras
     de la palabra que tiene que adivinar. hay que tener en cuenta que las letras se pueden repetir y se
     deben almacenar todas las posiciones"""
 
     diccionario={}
 
-    if jugador not in diccionario.keys():
-        diccionario[jugador]={}
+    for jugador in jugadores.keys():
 
-    palabraAAdivinar=jugadores[jugador][0]
+        if jugador not in diccionario.keys():
+            diccionario[jugador]={}
 
-    for idx,letra in enumerate(palabraAAdivinar):
+            palabraAAdivinar=jugadores[jugador][0]
 
-        if letra not in diccionario[jugador].keys():
-            diccionario[jugador][letra]=[]
+        for idx,letra in enumerate(palabraAAdivinar):
 
-        diccionario[jugador][letra].append(idx)
+            if letra not in diccionario[jugador].keys():
+                diccionario[jugador][letra]=[]
+
+            diccionario[jugador][letra].append(idx)
 
     return diccionario
 
@@ -56,10 +60,10 @@ def mostrar_posicion_marcar_letra(jugador,diccionarioJugador,letra):
     cuando no quedan mas letras en el diccionario es que se adivino la palabra"""
 
     if letra in diccionarioJugador[jugador].keys():
-        string="la letra {0} se encuentra en las posiciones".format(letra)
+        string="la letra {0} se encuentra en las posiciones: ".format(letra)
 
         for posicion in diccionarioJugador[jugador][letra]:
-            string+="{0}, ".format(posicion)
+            string+="{0} ".format(posicion)
 
         print(string)
 
@@ -85,13 +89,13 @@ turnos=['pedro','juan']
 
 diccionarioJugador={}
 ganoEljugador=False
+desaciertos=0
 
 salir=False
 
 while (salir != True):
 
-    for jugador in turnos:
-        diccionarioJugador=letrasPorJugador(jugador,jugadores)
+    diccionarioJugador=letrasPorJugador(jugadores)
 
     while(len(turnos) != 0):
 
@@ -102,6 +106,7 @@ while (salir != True):
 
             if letra in palabraAAdivinar:
                 ganoEljugador=mostrar_posicion_marcar_letra(jugador,diccionarioJugador,letra)
+
                 if (ganoEljugador):
                     suma_puntos(jugador,jugadores,30)
                     turnos=[]

@@ -18,7 +18,7 @@ def resta_puntos(jugador,jugadores):
 
     if (puntaje > 2):
         jugadores[jugador][4]-=2
-    elif (puntaje == 1)
+    elif (puntaje == 1):
         jugadores[jugador][4]-=1
 
 def suma_puntos(jugador,jugadores,puntos):
@@ -55,7 +55,7 @@ def mostrar_posicion_marcar_letra(jugador,diccionarioJugador,letra):
     """Esta funcion muestra la posicion de la letra adivinada y las va eliminando del diccionario
     cuando no quedan mas letras en el diccionario es que se adivino la palabra"""
 
-    if letra in diccionarioJugador[jugador].keys()
+    if letra in diccionarioJugador[jugador].keys():
         string="la letra {0} se encuentra en las posiciones".format(letra)
 
         for posicion in diccionarioJugador[jugador][letra]:
@@ -93,7 +93,7 @@ while (salir != True):
     for jugador in turnos:
         diccionarioJugador=letrasPorJugador(jugador,jugadores)
 
-    while(len(turnos) != 0)
+    while(len(turnos) != 0):
 
         for idx,jugador in enumerate(turnos):
             palabraAAdivinar=datos_jugador(jugador,jugadores)
@@ -133,7 +133,8 @@ while (salir != True):
     nuevaPartida=input("Quiere jugar una nueva partida?")
 
     if nuevaPartida in ["s","S","si","SI"]:
-        nueva_partida(jugadores)
+        pass
+        """nueva_partida(jugadores)"""
 
     else:
         print("gracias por volar con LOS Nocheros")

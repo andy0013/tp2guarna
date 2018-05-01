@@ -3,8 +3,7 @@ def datos_jugador(jugador,jugadores):
     palabra=jugadores[jugador][0]
     aciertos=jugadores[jugador][1]
     desaciertos=jugadores[jugador][2]
-    intentos=jugadores[jugador][3]
-    puntaje=jugadores[jugador][4]
+    puntaje=jugadores[jugador][3]
 
     print("el jugador {0} tiene {1} aciertos, {2} desaciertos, {3} intentos y un puntaje de {4}".format(jugador,aciertos,desaciertos,intentos,puntaje))
     return palabra
@@ -19,21 +18,16 @@ def suma_aciertos(jugador,jugadores):
 
 def resta_puntos(jugador,jugadores):
     """Esta funcion se utiliza para restar puntos a los jugadores"""
-    puntaje=jugadores[jugador][4]
+    puntaje=jugadores[jugador][3]
 
     if (puntaje > 2):
-        jugadores[jugador][4]-=2
+        jugadores[jugador][3]-=2
     elif (puntaje == 1):
-        jugadores[jugador][4]-=1
+        jugadores[jugador][3]-=1
 
 def suma_puntos(jugador,jugadores,puntos):
     """Esta funcion se utiliza para sumar puntos a los jugadores puede ser un punto o 30 se pasa por parametro"""
-    jugadores[jugador][4]+=puntos
-
-def suma_intentos(jugador,jugadores):
-    """Esta funcion se utiliza para sumar los intentos"""
-    jugadores[jugador][3]+=1
-    return jugadores[jugador][3]
+    jugadores[jugador][3]+=puntos
 
 def acumula_valores(jugadores,acumulados):
     """esta funcion acumula en cada partida los valores de jugadores se la paso a ignacio para que imprima los valores"""
@@ -42,7 +36,7 @@ def acumula_valores(jugadores,acumulados):
         acumulados[jugador][0]+=1
         acumulados[jugador][1]+=jugadores[jugador][1]
         acumulados[jugador][2]+=jugadores[jugador][2]
-        acumulados[jugador][3]+=jugadores[jugador][4]
+        acumulados[jugador][3]+=jugadores[jugador][3]
 
 def letrasPorJugador(jugadores):
     """Esta funcion usa un diccionario-> diccionario-> lista para guardar las posiciones de las letras
@@ -95,9 +89,10 @@ def mostrar_posicion_marcar_letra(jugador,diccionarioJugador,letra):
 Estas estructuras de datos jugadores y turnos son las que espero me envie andy e ignacio de las ramas 2 y 4
 se supone que los nombres no se repiten, yo agregaria esa verificacion en las primeras ramas cuando se cargan
 los nombres.
-Representan nombre,palabra a adivinar,aciertos,desaciertos,intentos,puntaje"""
+Representan nombre,palabra a adivinar,aciertos,desaciertos,puntaje
+Me respondieron de la catedra que los intentos no se deben tener encuenta"""
 
-jugadores={'juan':['testing',0,0,0,0],'pedro':['escarapela',0,0,0,0]}
+jugadores={'juan':['testing',0,0,0],'pedro':['escarapela',0,0,0]}
 turnos=['pedro','juan']
 
 """Esta estructura acumula los valores cantidad de partidas,aciertos,desaciertos,puntaje General"""
@@ -129,7 +124,6 @@ while (salir != True):
                     break
 
                 suma_puntos(jugador,jugadores,1)
-                intentos=suma_intentos(jugador,jugadores)
                 suma_aciertos(jugador,jugadores)
 
             else:
@@ -137,10 +131,6 @@ while (salir != True):
                 resta_puntos(jugador,jugadores)
 
             if (desaciertos==7):
-                del turnos[idx]
-                continue
-
-            if (intentos==8):
                 del turnos[idx]
                 continue
 

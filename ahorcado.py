@@ -13,6 +13,7 @@ def cantidad_de_personas_nombres(mensaje,mensajedos):
 
     for nombre in range(personas):
         nombre = input(mensajedos)
+        """Porque no usar append"""
         lista_con_nombres += [nombre]
     return lista_con_nombres
 

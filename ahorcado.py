@@ -31,7 +31,7 @@ def darlistanombresrandom(lista):
     return lista
 
 def lista_de_las_palabras_con_su_longitud(lista):
-    "esta funcion va a llamar a la lista proporcionada por Lean(\
+    "esta funcion va a llamar a la lista proporcionada por Lean(PalabrasValidas\
     una lista de palabras sin repetir , etc) y va a crear un diccionario con la palabra y, su valor\
     que va a ser la cantidad de letras que tiene , para que despues los usuarios eligan la cantidad\
     de letras que van a adivinar y otorgarles las palabras,despues devuelve una lista que tiene\

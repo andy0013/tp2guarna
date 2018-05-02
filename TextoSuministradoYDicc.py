@@ -2,7 +2,7 @@ def Palabras(oraciones):
     listaf = []
     import re
     for i in oraciones :
-        lista = re.split("[(, \-!?:).;><1234567890]+" , i )
+        lista = re.split("[(, \-!?:).\";><1234567890]+" , i )
         listaf.extend(lista)
     return sorted(listaf)
 
@@ -20,11 +20,11 @@ def CrearDicc(palabras):
             dicc[n] = 1
         else:
             dicc[n] += 1
-    del dicc['"']
     del dicc['']
     return dicc
 
 def CantDePalabras(dicc):
+    """no es lo mismo que usar lend"""
     contador = 0
     for n in dicc :
         contador += 1

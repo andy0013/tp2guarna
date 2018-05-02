@@ -73,7 +73,7 @@ def darlistadepalabrasentextoconletrapedida(lista_palabras_en_texto,numero_de_le
 
 
 def asignarpalabraacadajugador(lista_de_nombres_random,listadepalasconletra):
-    "esta funcion deberia devolver lo que vos pedis Pablo"
+    "esta funcion deberia devolver lo que vos pedis Pablo,pero aun no se como hacerla"
     jugadorysupalabra = {}
     random.shuffle(listadepalasconletra,random.random)
     cantidaduno = len(lista_de_nombres_random)

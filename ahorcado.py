@@ -1,6 +1,9 @@
 import random
 
 def cantidad_de_personas_nombres(mensaje,mensajedos):
+   "esta funcion va a pedir la cantidad de jugadores , corroborar que sean menores a diez\
+   luego va a pedir los nombres de los jugadores , y devuelve una lista de jugadores"
+
     seguir = True
     nombre = " "
     lista_con_nombres = []
@@ -13,28 +16,39 @@ def cantidad_de_personas_nombres(mensaje,mensajedos):
 
     for nombre in range(personas):
         nombre = input(mensajedos)
-        """Porque no usar append"""
         lista_con_nombres += [nombre]
     return lista_con_nombres
 
 def darlistanombresrandom(lista):
+    "esta funcion recibe la lista de jugadores creada anteriormente y va a imprimir\
+    una lista random de jugadores para que los usuarios sepan el orden de juego\
+    y va a devolver la lista random "
+
     random.shuffle(lista,random.random)
     print("el orden de juego sera:")
     for nombre in range(len(lista)):
         print(nombre+1 , lista[nombre])
     return lista
 
-def lista_de_las_palabras_con_su_longitud(texto):
-    texto1 = texto.split()
+def lista_de_las_palabras_con_su_longitud(lista):
+    "esta funcion va a llamar a la lista proporcionada por Lean(\
+    una lista de palabras sin repetir , etc) y va a crear un diccionario con la palabra y, su valor\
+    que va a ser la cantidad de letras que tiene , para que despues los usuarios eligan la cantidad\
+    de letras que van a adivinar y otorgarles las palabras,despues devuelve una lista que tiene\
+    la palabra y cantidad de letras"
+
     palabra_y_longitud = []
     palabras_y_numero_letras = {}
-    for palabras in texto1:
+    for palabras in lista:
         valor = len(palabras)
         palabras_y_numero_letras[palabras] = valor
     palabra_y_longitud = palabras_y_numero_letras.items()
     return palabra_y_longitud
 
 def cantidaddeletras(mensaje,mensaje2):
+    "funcion que pide a los jugadores la longitud de la palabra a adivinar , corrobora que sea mayorigual a 5\
+    una vez que tiene el valor, devuelve el valor de la longitud"
+
     seguir = True
     while seguir:
         letrasenpalabra = int(input(mensaje))
@@ -45,14 +59,21 @@ def cantidaddeletras(mensaje,mensaje2):
     return letrasenpalabra
 
 def darlistadepalabrasentextoconletrapedida(lista_palabras_en_texto,numero_de_letras):
+    "esta funcion recibe la lista de de palabras con su valor de longitud de letras\
+    que fue hecha en la funcion (lista_de_las_palabras_con_su_longitud) y recibe\
+    el valor que contiene la cantidad de letras a adivinar que devuelve la funcion\
+    (cantidaddeletras), con esos valores busca la palabra que tenga la cantidad de letras pedida,\
+    finalmente devuelve una lista con las palabras que tienen la longitud ingresada"
+
     palabras_en_el_texto = []
     for palabras in lista_palabras_en_texto:
         if palabras[1] == numero_de_letras:
             palabras_en_el_texto += [palabras[0]]
     return palabras_en_el_texto
 
-#solo me falta terminar la funcion de abajo,para que arme un diccionario con clave(nombre de jugador) = valor(palabra asignada a adivinar)
+
 def asignarpalabraacadajugador(lista_de_nombres_random,listadepalasconletra):
+    "esta funcion deberia devolver lo que vos pedis Pablo"
     jugadorysupalabra = {}
     random.shuffle(listadepalasconletra,random.random)
     cantidaduno = len(lista_de_nombres_random)
@@ -69,4 +90,3 @@ numero_de_letras = cantidaddeletras("cantidad de letras","solo mayor igual a 5")
 listadepalasconletra = (darlistadepalabrasentextoconletrapedida(lista_palabras_en_texto,numero_de_letras))
 print(listadepalasconletra)
 print(asignarpalabraacadajugador(lista_de_nombres_random,listadepalasconletra))
-

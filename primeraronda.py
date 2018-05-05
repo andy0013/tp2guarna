@@ -5,7 +5,8 @@ def datos_jugador(jugador,jugadores):
     desaciertos=jugadores[jugador][2]
     puntaje=jugadores[jugador][3]
 
-    print("el jugador {0} tiene {1} aciertos, {2} desaciertos, {3} intentos y un puntaje de {4}".format(jugador,aciertos,desaciertos,intentos,puntaje))
+    print("Es el turno del jugador {0}: ".format(jugador))
+    print("{0} aciertos, {1} desaciertos y un puntaje de {2}".format(aciertos,desaciertos,puntaje))
     return palabra
 
 def incrementar_desaciertos(jugador,jugadores):
@@ -61,29 +62,43 @@ def letrasPorJugador(jugadores):
 
     return diccionario
 
-def mostrar_posicion_marcar_letra(jugador,diccionarioJugador,letra):
+
+def mostrar_posicion_marcar_letra(idx,jugador,jugadores,diccionarioJugador,listaLetrasArriesgadas,listaLetrasAcertadas,letra):
     """Esta funcion muestra la posicion de la letra adivinada y las va eliminando del diccionario
     cuando no quedan mas letras en el diccionario es que se adivino la palabra"""
 
-    if letra in diccionarioJugador[jugador].keys():
-        string="la letra {0} se encuentra en las posiciones: ".format(letra)
+    listaLetrasArriesgadas[idx].append(letra)
 
-        for posicion in diccionarioJugador[jugador][letra]:
-            string+="{0} ".format(posicion)
+    for posicionLetra in diccionarioJugador[jugador][letra]:
+        listaLetrasAcertadas[idx][posicionLetra]=letra
 
-        print(string)
+    print("Palabra a adivinar: {0}  lista de letras arriesgadas: {1}".format(listaLetrasAcertadas[idx],listaLetrasArriesgadas[idx]))
 
-        del diccionarioJugador[jugador][letra]
+    if (listaLetrasAcertadas[idx].count("_")==0):
+        return True
 
-    else:
-        if (len(diccionarioJugador[jugador]) == 0):
-            return True
-        else:
-            print("ya habias elegido la letra {0} perdiste un intento".format(letra))
-            return False
+    return False
+
+def init_listas(turnos,jugadores,listaLetrasArriesgadas,listaLetrasAcertadas):
+    """Iniciliza las listas que muestra los aciertos y desaciertos de las letras ingresadas"""
+    laux=[]
+    for item in jugadores.keys():
+        listaLetrasArriesgadas.append([])
+
+    for turno in turnos:
+        longitud_palabra=len(jugadores[turno][0])
+        laux=[]
+        for item in range(longitud_palabra):
+            laux.append("_")
+
+        listaLetrasAcertadas.append(laux)
+
+
+
 
 """-------------------------------------------Fin de funciones-----------------------------------------------"""
 
+MAXJUGADORES=10
 
 """
 Estas estructuras de datos jugadores y turnos son las que espero me envie andy e ignacio de las ramas 2 y 4
@@ -98,13 +113,17 @@ turnos=['pedro','juan']
 """Esta estructura acumula los valores cantidad de partidas,aciertos,desaciertos,puntaje General"""
 acumulados={'juan':[0,0,0,0],'pedro':[0,0,0,0]}
 
-diccionarioJugador={}
-ganoEljugador=False
-desaciertos=0
-
 salir=False
 
 while (salir != True):
+
+    diccionarioJugador={}
+    listaLetrasArriesgadas=[]
+    listaLetrasAcertadas=[]
+    ganoEljugador=False
+    desaciertos=0
+
+    init_listas(turnos,jugadores,listaLetrasArriesgadas,listaLetrasAcertadas)
 
     diccionarioJugador=letrasPorJugador(jugadores)
 
@@ -112,11 +131,10 @@ while (salir != True):
 
         for idx,jugador in enumerate(turnos):
             palabraAAdivinar=datos_jugador(jugador,jugadores)
-
             letra=input("Ingrese una letra:")
 
             if letra in palabraAAdivinar:
-                ganoEljugador=mostrar_posicion_marcar_letra(jugador,diccionarioJugador,letra)
+                ganoEljugador=mostrar_posicion_marcar_letra(idx,jugador,jugadores,diccionarioJugador,listaLetrasArriesgadas,listaLetrasAcertadas,letra)
 
                 if (ganoEljugador):
                     suma_puntos(jugador,jugadores,30)
@@ -132,6 +150,8 @@ while (salir != True):
 
             if (desaciertos==7):
                 del turnos[idx]
+                del listaLetrasArriesgadas[idx]
+                del listaLetrasAcertadas[idx]
                 continue
 
     if(ganoEljugador):
@@ -145,15 +165,15 @@ while (salir != True):
     while True:
         nuevaPartida=input("Quiere jugar una nueva partida?\n")
 
-    if nuevaPartida in ["s","S","si","SI"]:
-        acumula_valores(jugadores,acumulados)
-        break
-    elif nuevaPartida in ["n","N","no","NO"]
-        print("gracias por volar con LOS Nocheros!!!!")
-        salir=True
-        break
-    else:
-        print("Ingrese una opcion valida(si/no)\n")
+        if nuevaPartida in ["s","S","si","SI"]:
+            acumula_valores(jugadores,acumulados)
+            break
+        elif nuevaPartida in ["n","N","no","NO"]:
+            print("gracias por volar con LOS Nocheros!!!!")
+            salir=True
+            break
+        else:
+            print("Ingrese una opcion valida(si/no)\n")
 
 
 

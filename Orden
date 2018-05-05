@@ -1,0 +1,19 @@
+from primeraronda import acumulados
+import random
+
+def randomShuffle(acumulados):
+    acumulados2 = []
+    for key, value in acumulados.items():
+        temp = [key,value[4]]
+        acumulados2.append(temp)
+        random.shuffle(acumulados2)
+    return acumulados2
+
+acumulados3 = randomShuffle(acumulados)
+
+def ordenarPorPuntaje(acumulados3):
+    return sorted(acumulados3, key = lambda x: int(x[1]))
+
+turnos = ordenarPorPuntaje(acumulados3)[::-1]
+
+print(turnos)

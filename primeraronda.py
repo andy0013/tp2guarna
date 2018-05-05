@@ -142,16 +142,18 @@ while (salir != True):
     for jugador in jugadores.keys():
          datos_jugador(jugador,jugadores)
 
-    nuevaPartida=input("Quiere jugar una nueva partida?")
+    while True:
+        nuevaPartida=input("Quiere jugar una nueva partida?\n")
 
     if nuevaPartida in ["s","S","si","SI"]:
         acumula_valores(jugadores,acumulados)
-        print(acumulados)
-        print("juega nueva partida")
-        """nueva_partida(jugadores,acumulados)"""
-
-    else:
-        print("gracias por volar con LOS Nocheros")
+        break
+    elif nuevaPartida in ["n","N","no","NO"]
+        print("gracias por volar con LOS Nocheros!!!!")
         salir=True
+        break
+    else:
+        print("Ingrese una opcion valida(si/no)\n")
+
 
 

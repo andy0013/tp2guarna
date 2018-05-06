@@ -1,4 +1,5 @@
 import re
+import texto
 
 def Palabras(oraciones):
     listaf = []
@@ -31,7 +32,6 @@ def CantDePalabras(dicc):
         contador += 1
     return contador
 
-import texto
 l_oraciones = texto.obtener_texto()
 PalabrasEnTexto = Palabras(l_oraciones)
 PalabrasValidas= EliminarRepes(PalabrasEnTexto)

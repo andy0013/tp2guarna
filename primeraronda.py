@@ -150,6 +150,7 @@ while (salir != True):
                 letra=input("Ingrese una letra:")
 
             if letra in palabraAAdivinar:
+                """Esta funcion ademas de insertar las letras en las posiciones incrementa los aciertos y el puntaje"""
                 ganoEljugador=mostrar_posicion_marcar_letra(idx,jugador,jugadores,diccionarioJugador,listaLetrasArriesgadas,listaLetrasAcertadas,letra)
 
                 if (ganoEljugador):

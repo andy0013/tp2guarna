@@ -28,12 +28,12 @@ def resta_puntos(jugador,jugadores):
     """Esta funcion se utiliza para restar puntos a los jugadores"""
     puntaje=jugadores[jugador][3]
 
-    if (puntaje > 2):
+    if (puntaje >= 2):
         jugadores[jugador][3]-=2
     elif (puntaje == 1):
         jugadores[jugador][3]-=1
 
-def suma_puntos(jugador,jugadores,puntos):
+def suma_puntos(jugador,jugadores,puntos=1):
     """Esta funcion se utiliza para sumar puntos a los jugadores puede ser un punto o 30 se pasa por parametro"""
     jugadores[jugador][3]+=puntos
 
@@ -70,13 +70,15 @@ def letrasPorJugador(jugadores):
     return diccionario
 
 
-def mostrar_posicion_marcar_letra(idx,diccionarioJugador,listaLetrasArriesgadas,listaLetrasAcertadas,letra):
+def mostrar_posicion_marcar_letra(idx,jugador,jugadores,diccionarioJugador,listaLetrasArriesgadas,listaLetrasAcertadas,letra):
     """Esta funcion muestra la posicion de la letra adivinada y las va eliminando del diccionario
     cuando no quedan mas letras en el diccionario es que se adivino la palabra"""
 
     for posicionLetra in diccionarioJugador[jugador][letra]:
         if letra not in listaLetrasAcertadas[idx]:
             listaLetrasAcertadas[idx][posicionLetra]=letra
+            suma_aciertos(jugador,jugadores)
+            suma_puntos(jugador,jugadores)
 
     if letra not in listaLetrasAcertadas[idx]:
         listaLetrasArriesgadas[idx].append(letra)
@@ -148,17 +150,12 @@ while (salir != True):
                 letra=input("Ingrese una letra:")
 
             if letra in palabraAAdivinar:
-                ganoEljugador=mostrar_posicion_marcar_letra(idx,diccionarioJugador,listaLetrasArriesgadas,listaLetrasAcertadas,letra)
+                ganoEljugador=mostrar_posicion_marcar_letra(idx,jugador,jugadores,diccionarioJugador,listaLetrasArriesgadas,listaLetrasAcertadas,letra)
 
                 if (ganoEljugador):
                     suma_puntos(jugador,jugadores,30)
                     turnos=[]
                     break
-
-                if letra not in listaLetrasArriesgadas[idx]:
-                    suma_puntos(jugador,jugadores,1)
-                    suma_aciertos(jugador,jugadores)
-
             else:
                 print("La letra {0} no se encuentra en la palabra a adivinar".format(letra))
                 print("\n")

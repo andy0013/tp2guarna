@@ -1,6 +1,9 @@
+#Estoy usando dos funciones porque cada una hace cosas distintas.
+
 from primeraronda import acumulados
 import random
 
+#Esta funcion da hace el random.shuffle para los jugadores con igual puntaje.
 def randomShuffle(acumulados):
     acumulados2 = []
     for key, value in acumulados.items():
@@ -11,9 +14,10 @@ def randomShuffle(acumulados):
 
 acumulados3 = randomShuffle(acumulados)
 
+#Esta funcion ordena por puntaje decreciente.
 def ordenarPorPuntaje(acumulados3):
     return sorted(acumulados3, key = lambda x: int(x[1]))
 
-turnos = ordenarPorPuntaje(acumulados3)[::-1]
 
-print(turnos)
+#La variable turnos es la que da el orden de juego.
+turnos = ordenarPorPuntaje(acumulados3)[::-1]

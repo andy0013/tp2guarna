@@ -15,20 +15,18 @@ def Palabras(oraciones):
 def EliminarRepes(texto):
     final = []
     for i in texto:
-        if not i in final:
-            final.append(elimina_tildes(i))
-    final.remove('')
-    return final
+        if (len(i) >= 5):
+            if not i in final:
+                final.append(elimina_tildes(i))
+    return sorted(final)
 
-def CrearDicc(palabras):
+def CrearDicc(validas, palabras):
     dicc = {}
-    for n in palabras:
-        if not n in dicc :
-            dicc[n] = 1
-        else:
-            dicc[n] += 1
-    del dicc['']
-    del dicc["A"]
+    for n in validas:
+        dicc[n] = 0
+    for i in palabras:
+        if i in dicc:
+            dicc[i] += 1
     return dicc
 
 def CantDePalabras(dicc):
@@ -38,6 +36,8 @@ def CantDePalabras(dicc):
 l_oraciones = texto.obtener_texto()
 PalabrasEnTexto = Palabras(l_oraciones)
 PalabrasValidas = EliminarRepes(PalabrasEnTexto)
-Dicc = CrearDicc(PalabrasEnTexto)
+Dicc = CrearDicc(PalabrasValidas, PalabrasEnTexto)
+print(PalabrasEnTexto)
+print(PalabrasValidas)
 print(Dicc)
 print("Cant. de palabras en diccionario: ", CantDePalabras(Dicc))

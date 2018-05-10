@@ -1,6 +1,10 @@
 from primeraronda import acumulados
 import random
 
+"""Esta estructura acumula los valores cantidad de partidas,aciertos,desaciertos,puntaje General"""
+acumulados={'juan':[0,0,0,0],'pedro':[0,0,0,0]}
+
+
 #Esta funcion ordena por puntaje decreciente y hace un random.shuffle para los jugadores con igual puntaje.
 def ordenarPorPuntaje(acumulados):
     acumulados2 = []
@@ -10,3 +14,9 @@ def ordenarPorPuntaje(acumulados):
         random.shuffle(acumulados2)
     turnos = sorted(acumulados2, key = lambda x: int(x[1]))[::-1]
     return turnos
+
+
+
+def nueva_partida(turnos,acumulados):
+
+    print("el jugador"

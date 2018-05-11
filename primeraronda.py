@@ -1,3 +1,5 @@
+import nueva_partida
+
 def datos_jugador(jugador,jugadores,resumen=False):
     """Esta funcion muestra los datos acumulados de los jugadores"""
     palabra=jugadores[jugador][0]
@@ -183,7 +185,7 @@ while (salir != True):
 
         if nuevaPartida in ["s","S","si","SI"]:
             acumula_valores(jugadores,acumulados)
-            print("aca se llama a nueva partida")
+            turnos=nueva_partida(acumulados)
             break
         elif nuevaPartida in ["n","N","no","NO"]:
             print("gracias por volar con LOS Nocheros!!!!")

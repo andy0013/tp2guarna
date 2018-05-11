@@ -1,6 +1,6 @@
+import precondiciones
 import random
-import re
-import texto
+
 
 def Palabras(oraciones):
     listaf = []

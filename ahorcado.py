@@ -1,25 +1,68 @@
 import random
+import re
+import texto
 
-def cantidad_de_personas_nombres(mensaje,mensajedos):
-   "esta funcion va a pedir la cantidad de jugadores , corroborar que sean menores a diez\
-   luego va a pedir los nombres de los jugadores , y devuelve una lista de jugadores"
+def Palabras(oraciones):
+    listaf = []
+    for i in oraciones :
+        lista = re.split("[(, \-!?:).\";><1234567890]+" , i )
+        listaf.extend(lista)
+    return sorted(listaf)
 
+def EliminarRepes(texto):
+    final = []
+    for i in texto:
+        if not i in final:
+            final.append(i)
+    return final
+
+def CrearDicc(palabras):
+    dicc = {}
+    for n in palabras:
+        if n not in dicc :
+            dicc[n] = 1
+        else:
+            dicc[n] += 1
+    del dicc['']
+    return dicc
+
+def CantDePalabras(dicc):
+    """no es lo mismo que usar len"""
+    contador = 0
+    for n in dicc :
+        contador += 1
+    return contador
+def numero(mensaje):
+    x = input(mensaje)
+    while not x.isdigit():
+        print("ingrese numero no letras")
+        x = input(mensaje)
+    return x
+
+
+def palabra(mensaje):
+    x = input(mensaje)
+    while x.isdigit():
+        print("no ingresar numeros")
+        x = input(mensaje)
+    return x
+
+def usuarios_nombres(mensaje,mensajedos):
     seguir = True
     nombre = " "
     lista_con_nombres = []
     while seguir:
-        personas = int(input(mensaje))
+        personas = int(numero(mensaje))
         if personas <= 10:
             seguir = False
         else:
             print("La cantidad de jugadores permitida debe ser menor a 10 , ingrese nuevamente un valor adecuado")
-
     for nombre in range(personas):
-        nombre = input(mensajedos)
+        nombre = palabra(mensajedos)
         lista_con_nombres += [nombre]
     return lista_con_nombres
 
-def darlistanombresrandom(lista):
+def l_random(lista):
     "esta funcion recibe la lista de jugadores creada anteriormente y va a imprimir\
     una lista random de jugadores para que los usuarios sepan el orden de juego\
     y va a devolver la lista random "
@@ -31,7 +74,7 @@ def darlistanombresrandom(lista):
     return lista
 
 def lista_de_las_palabras_con_su_longitud(lista):
-    "esta funcion va a llamar a la lista proporcionada por Lean(PalabrasValidas\
+    "esta funcion va a llamar a la lista proporcionada por Lean(\
     una lista de palabras sin repetir , etc) y va a crear un diccionario con la palabra y, su valor\
     que va a ser la cantidad de letras que tiene , para que despues los usuarios eligan la cantidad\
     de letras que van a adivinar y otorgarles las palabras,despues devuelve una lista que tiene\
@@ -48,7 +91,6 @@ def lista_de_las_palabras_con_su_longitud(lista):
 def cantidaddeletras(mensaje,mensaje2):
     "funcion que pide a los jugadores la longitud de la palabra a adivinar , corrobora que sea mayorigual a 5\
     una vez que tiene el valor, devuelve el valor de la longitud"
-
     seguir = True
     while seguir:
         letrasenpalabra = int(input(mensaje))
@@ -73,20 +115,26 @@ def darlistadepalabrasentextoconletrapedida(lista_palabras_en_texto,numero_de_le
 
 
 def asignarpalabraacadajugador(lista_de_nombres_random,listadepalasconletra):
-    "esta funcion deberia devolver lo que vos pedis Pablo,pero aun no se como hacerla"
+    "esta funcion deberia devolver lo que vos pedis Pablo"
     jugadorysupalabra = {}
     random.shuffle(listadepalasconletra,random.random)
     cantidaduno = len(lista_de_nombres_random)
-    cantidaddos = len(listadepalasconletra)
-    if cantidaduno < cantidaddos:
-        for nombres in range(len(lista_de_nombres_random)):
-            jugadorysupalabra[nombres] = " "
+    for numeros in range(cantidaduno):
+        jugadorysupalabra[lista_de_nombres_random[numeros]] = [listadepalasconletra[numeros],0,0,0]
+    return jugadorysupalabra
 
-texto = "anmistia caminando caminar almohada  camilla cantante animadores animales autistas antes"
-lista_palabras_en_texto = (lista_de_las_palabras_con_su_longitud(texto))
-lista_de_nombres = (cantidad_de_personas_nombres("cantidad de personas a jugar","nombre de persona"))
-lista_de_nombres_random = (darlistanombresrandom(lista_de_nombres))
-numero_de_letras = cantidaddeletras("cantidad de letras","solo mayor igual a 5")
-listadepalasconletra = (darlistadepalabrasentextoconletrapedida(lista_palabras_en_texto,numero_de_letras))
-print(listadepalasconletra)
-print(asignarpalabraacadajugador(lista_de_nombres_random,listadepalasconletra))
+def Pablo():
+    nombres = usuarios_nombres("ingrese la cantidad de jugadores: ","ingrese el nombre de el jugador: ")
+    turnos = l_random(nombres)
+    letra = cantidaddeletras("ingrese cantidad de letras: ","ingrese solo un numero mayor a 5")
+    lista_longitud = lista_de_las_palabras_con_su_longitud(PalabrasValidas)
+    lista_hecha = darlistadepalabrasentextoconletrapedida(lista_longitud,letra)
+    l_final = asignarpalabraacadajugador(turnos,lista_hecha)
+    return l_final
+
+
+l_oraciones = texto.obtener_texto()
+PalabrasEnTexto = Palabras(l_oraciones)
+PalabrasValidas= EliminarRepes(PalabrasEnTexto)
+Dicc = CrearDicc(PalabrasEnTexto)
+print(Pablo())

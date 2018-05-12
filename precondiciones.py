@@ -47,4 +47,4 @@ def precondiciones():
     print("Cantidad de palabras en el diccionario: ", len(diccionario))
     return(list(diccionario.keys()))
 
-print(precondiciones())
+

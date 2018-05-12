@@ -25,6 +25,6 @@ def nueva_partida(acumulados):
         aciertosTotal=acumulados[jugador][1]
         desaciertosTotal=acumulados[jugador][2]
         puntajeTotal=acumulados[jugador][3]
-        print("el jugador {0} tiene un puntaje Total de {1} tiene un Total de {2} partidas jugadas, un Total de {3} de aciertos y un Total de {41} desaciertos".format(jugador,puntajeTotal,partidasTotal,aciertosTotal,desaciertosTotal))
+        print("el jugador {0} tiene un puntaje Total de {1} tiene un Total de {2} partidas jugadas, un Total de {3} de aciertos y un Total de {4} desaciertos".format(jugador,puntajeTotal,partidasTotal,aciertosTotal,desaciertosTotal))
         turnos.append(jugador)
     return turnos

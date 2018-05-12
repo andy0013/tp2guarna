@@ -1,3 +1,4 @@
+import preparacion_juego
 import nueva_partida
 
 def datos_jugador(jugador,jugadores,resumen=False):
@@ -9,7 +10,7 @@ def datos_jugador(jugador,jugadores,resumen=False):
 
     if (resumen):
         print("Las estadisticas del jugador {0} son: ".format(jugador))
-        print("{0} aciertos, {1} desaciertos y un puntaje de {2}".format(aciertos,desaciertos,puntaje))
+        print("Palabra a adivinar {0},{1} aciertos, {2} desaciertos y un puntaje de {3}".format(palabra,aciertos,desaciertos,puntaje))
         print("\n")
     else:
         print("Es el turno del jugador {0}: ".format(jugador))
@@ -48,7 +49,7 @@ def acumula_valores(jugadores,acumulados):
         acumulados[jugador][2]+=jugadores[jugador][2]
         acumulados[jugador][3]+=jugadores[jugador][3]
 
-def letrasPorJugador(jugadores):
+def letras_por_jugador(jugadores):
     """Esta funcion usa un diccionario-> diccionario-> lista para guardar las posiciones de las letras
     de la palabra que tiene que adivinar. hay que tener en cuenta que las letras se pueden repetir y se
     deben almacenar todas las posiciones"""
@@ -60,9 +61,9 @@ def letrasPorJugador(jugadores):
         if jugador not in diccionario.keys():
             diccionario[jugador]={}
 
-            palabraAAdivinar=jugadores[jugador][0]
+            palabra=jugadores[jugador][0]
 
-        for idx,letra in enumerate(palabraAAdivinar):
+        for idx,letra in enumerate(palabra):
 
             if letra not in diccionario[jugador].keys():
                 diccionario[jugador][letra]=[]
@@ -78,9 +79,9 @@ def mostrar_posicion_marcar_letra(idx,jugador,jugadores,diccionarioJugador,lista
 
     for posicionLetra in diccionarioJugador[jugador][letra]:
         if letra not in listaLetrasAcertadas[idx]:
-            listaLetrasAcertadas[idx][posicionLetra]=letra
             suma_aciertos(jugador,jugadores)
             suma_puntos(jugador,jugadores)
+        listaLetrasAcertadas[idx][posicionLetra]=letra
 
     if letra not in listaLetrasAcertadas[idx]:
         listaLetrasArriesgadas[idx].append(letra)
@@ -99,7 +100,7 @@ def mostrar_estado_actual(idx,listaLetrasAcertadas,listaLetrasArriesgadas):
 
 def init_listas(turnos,jugadores,listaLetrasArriesgadas,listaLetrasAcertadas):
     """Iniciliza las listas que muestra los aciertos y desaciertos de las letras ingresadas"""
-    laux=[]
+
     for item in jugadores.keys():
         listaLetrasArriesgadas.append([])
 
@@ -111,6 +112,17 @@ def init_listas(turnos,jugadores,listaLetrasArriesgadas,listaLetrasAcertadas):
 
         listaLetrasAcertadas.append(laux)
 
+def actualiza_jugadores(jugadores,turnos,acumulados):
+
+    listaDePalabrasAAdivinar=preparacion_juego.generar_lista_de_palabras_a_adivinar(turnos)
+
+    i=0
+    for jugador in jugadores:
+        jugadores[jugador][0]=listaDePalabrasAAdivinar[i]
+        jugadores[jugador][1]=acumulados[jugador][1]
+        jugadores[jugador][2]=acumulados[jugador][2]
+        jugadores[jugador][3]=acumulados[jugador][3]
+        i+=1
 
 """-------------------------------------------Fin de funciones-----------------------------------------------"""
 
@@ -121,13 +133,18 @@ los nombres.
 Representan nombre,palabra a adivinar,aciertos,desaciertos,puntaje
 Me respondieron de la catedra que los intentos no se deben tener encuenta"""
 
+"""
+estructuras de datos
+Representan nombre,palabra a adivinar,aciertos,desaciertos,puntaje
 jugadores={'juan':['abc',0,0,0],'pedro':['def',0,0,0]}
 turnos=['pedro','juan']
-
-"""Esta estructura acumula los valores cantidad de partidas,aciertos,desaciertos,puntaje General"""
+Representan nombre,cantidad de partidas totales,aciertos totales,desaciertos totales,puntaje total
 acumulados={'juan':[0,0,0,0],'pedro':[0,0,0,0]}
+"""
 
 salir=False
+
+jugadores,turnos,acumulados=preparacion_juego.preparacion_juego()
 
 while (salir != True):
 
@@ -139,7 +156,7 @@ while (salir != True):
 
     init_listas(turnos,jugadores,listaLetrasArriesgadas,listaLetrasAcertadas)
 
-    diccionarioJugador=letrasPorJugador(jugadores)
+    diccionarioJugador=letras_por_jugador(jugadores)
 
     while(len(turnos) != 0):
 
@@ -185,7 +202,8 @@ while (salir != True):
 
         if nuevaPartida in ["s","S","si","SI"]:
             acumula_valores(jugadores,acumulados)
-            turnos=nueva_partida(acumulados)
+            turnos=nueva_partida.nueva_partida(acumulados)
+            actualiza_jugadores(jugadores,turnos,acumulados)
             break
         elif nuevaPartida in ["n","N","no","NO"]:
             print("gracias por volar con LOS Nocheros!!!!")

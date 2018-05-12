@@ -92,23 +92,28 @@ def obtiene_lista_palabras_a_adivinar(diccionarioLongitudPalabras,cantidadJugado
 
     return listaPalabrasAAdivinar
 
+def generar_lista_de_palabras_a_adivinar(listaDeJugadores):
+    listaDePalabrasPotenciales=precondiciones.precondiciones()
+    diccionarioLongitudPalabras=crear_diccionario_palabras_longitud(listaDePalabrasPotenciales)
+    listaDePalabrasAAdivinar=obtiene_lista_palabras_a_adivinar(diccionarioLongitudPalabras,len(listaDeJugadores))
+
+    return listaDePalabrasAAdivinar
 
 def preparacion_juego():
 
     jugadores={}
     turnos=[]
-
-    listaDePalabrasPotenciales=precondiciones.precondiciones()
+    acumulados={}
 
     listaDeJugadores=ingresar_nombre_jugadores()
     imprimir_lista_jugadores(listaDeJugadores)
-    diccionarioLongitudPalabras=crear_diccionario_palabras_longitud(listaDePalabrasPotenciales)
-    listaDePalabrasAAdivinar=obtiene_lista_palabras_a_adivinar(diccionarioLongitudPalabras,len(listaDeJugadores))
+    listaDePalabrasAAdivinar=generar_lista_de_palabras_a_adivinar(listaDeJugadores)
 
     i=0
     for jugador in listaDeJugadores:
         jugadores[jugador]=[listaDePalabrasAAdivinar[i],0,0,0]
         turnos.append(jugador)
+        acumulados[jugador]=[0,0,0,0]
         i+=1
 
-    return jugadores,turnos
+    return jugadores,turnos,acumulados

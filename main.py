@@ -2,7 +2,9 @@ import preparacion_juego
 import nueva_partida
 
 def datos_jugador(jugador,jugadores,resumen=False):
-    """Esta funcion muestra los datos acumulados de los jugadores"""
+    """Esta funcion muestra los datos acumulados de los jugadores y genera un resumen para mostrar al final de la partida.
+    Realizada por Pablo Arias."""
+
     palabra=jugadores[jugador][0]
     aciertos=jugadores[jugador][1]
     desaciertos=jugadores[jugador][2]
@@ -19,16 +21,16 @@ def datos_jugador(jugador,jugadores,resumen=False):
     return palabra
 
 def incrementar_desaciertos(jugador,jugadores):
-    """Esta funcion se utiliza para incrementar los desaciertos"""
+    """Esta funcion se utiliza para incrementar los desaciertos. realizada por Pablo Arias"""
     jugadores[jugador][2]+=1
     return jugadores[jugador][2]
 
 def suma_aciertos(jugador,jugadores):
-    """Esta funcion incrementa los aciertos"""
+    """Esta funcion incrementa los aciertos. realizada por Pablo Arias"""
     jugadores[jugador][1]+=1
 
 def resta_puntos(jugador,jugadores):
-    """Esta funcion se utiliza para restar puntos a los jugadores"""
+    """Esta funcion se utiliza para restar puntos a los jugadores.Realizada por Pablo Arias."""
     puntaje=jugadores[jugador][3]
 
     if (puntaje >= 2):
@@ -37,11 +39,13 @@ def resta_puntos(jugador,jugadores):
         jugadores[jugador][3]-=1
 
 def suma_puntos(jugador,jugadores,puntos=1):
-    """Esta funcion se utiliza para sumar puntos a los jugadores puede ser un punto o 30 se pasa por parametro"""
+    """Esta funcion se utiliza para sumar puntos a los jugadores puede ser un punto o 30 se pasa por parametro
+    Realizada por Pablo Arias."""
     jugadores[jugador][3]+=puntos
 
 def acumula_valores(jugadores,acumulados):
-    """esta funcion acumula en cada partida los valores de jugadores se la paso a ignacio para que imprima los valores"""
+    """esta funcion acumula en cada partida los valores de jugadores, para pasarlos al modulo nueva_partida para que imprima
+    los valores.Realizado por Pablo Arias."""
 
     for jugador in jugadores:
         acumulados[jugador][0]+=1
@@ -52,7 +56,7 @@ def acumula_valores(jugadores,acumulados):
 def letras_por_jugador(jugadores):
     """Esta funcion usa un diccionario-> diccionario-> lista para guardar las posiciones de las letras
     de la palabra que tiene que adivinar. hay que tener en cuenta que las letras se pueden repetir y se
-    deben almacenar todas las posiciones"""
+    deben almacenar todas las posiciones. Realizado por Pablo Arias"""
 
     diccionario={}
 
@@ -74,8 +78,8 @@ def letras_por_jugador(jugadores):
 
 
 def mostrar_posicion_marcar_letra(idx,jugador,jugadores,diccionarioJugador,listaLetrasArriesgadas,listaLetrasAcertadas,letra):
-    """Esta funcion muestra la posicion de la letra adivinada y las va eliminando del diccionario
-    cuando no quedan mas letras en el diccionario es que se adivino la palabra"""
+    """Esta funcion muestra la posicion de la letra adivinada o va acumulando los intentos fallidos.
+    devuelve true cuando se adivino la palabra. Realizada por Pablo Arias."""
 
     for posicionLetra in diccionarioJugador[jugador][letra]:
         if letra not in listaLetrasAcertadas[idx]:
@@ -95,11 +99,11 @@ def mostrar_posicion_marcar_letra(idx,jugador,jugadores,diccionarioJugador,lista
     return False
 
 def mostrar_estado_actual(idx,listaLetrasAcertadas,listaLetrasArriesgadas):
-
+    """Muestra el estado actual de las letras adivinadas y letras fallidas. Realizado por Pablo Arias."""
     print("Palabra a adivinar: {0}  lista de letras Fallidas: {1}".format(listaLetrasAcertadas[idx],listaLetrasArriesgadas[idx]))
 
 def init_listas(turnos,jugadores,listaLetrasArriesgadas,listaLetrasAcertadas):
-    """Iniciliza las listas que muestra los aciertos y desaciertos de las letras ingresadas"""
+    """Iniciliza las listas que muestra los aciertos y desaciertos de las letras ingresadas. Realizada por Pablo Arias"""
 
     for item in jugadores.keys():
         listaLetrasArriesgadas.append([])
@@ -113,31 +117,28 @@ def init_listas(turnos,jugadores,listaLetrasArriesgadas,listaLetrasAcertadas):
         listaLetrasAcertadas.append(laux)
 
 def actualiza_jugadores(jugadores,turnos,acumulados):
-
+    """Esta funcion actualiza la estructura de datos jugadores cuando se juegan mas de una partida. Realizdo por pablo Arias."""
     listaDePalabrasAAdivinar=preparacion_juego.generar_lista_de_palabras_a_adivinar(turnos)
 
     i=0
     for jugador in jugadores:
         jugadores[jugador][0]=listaDePalabrasAAdivinar[i]
-        jugadores[jugador][1]=acumulados[jugador][1]
-        jugadores[jugador][2]=acumulados[jugador][2]
+        jugadores[jugador][1]=0
+        jugadores[jugador][2]=0
         jugadores[jugador][3]=acumulados[jugador][3]
         i+=1
 
 """-------------------------------------------Fin de funciones-----------------------------------------------"""
 
-"""
-Estas estructuras de datos jugadores y turnos son las que espero me envie andy e ignacio de las ramas 2 y 4
-se supone que los nombres no se repiten, yo agregaria esa verificacion en las primeras ramas cuando se cargan
-los nombres.
-Representan nombre,palabra a adivinar,aciertos,desaciertos,puntaje
-Me respondieron de la catedra que los intentos no se deben tener encuenta"""
+"""Me respondieron de la catedra que los intentos no se deben tener encuenta"""
 
 """
 estructuras de datos
 Representan nombre,palabra a adivinar,aciertos,desaciertos,puntaje
 jugadores={'juan':['abc',0,0,0],'pedro':['def',0,0,0]}
+
 turnos=['pedro','juan']
+
 Representan nombre,cantidad de partidas totales,aciertos totales,desaciertos totales,puntaje total
 acumulados={'juan':[0,0,0,0],'pedro':[0,0,0,0]}
 """

@@ -2,6 +2,7 @@ import precondiciones
 import random
 
 def obtener_numero(mensaje):
+    """Obtiene un numero y verifica que no se ingresen letras. Realizado por andres"""
     numero = input(mensaje)
     while not numero.isdigit():
         print("ingrese numero no letras")
@@ -10,6 +11,7 @@ def obtener_numero(mensaje):
 
 
 def obtener_string(mensaje):
+    """Obtiene un string y verifca que no se ingresen numeros. Realizado por andres"""
     palabra = input(mensaje)
     while palabra.isdigit():
         print("no ingresar numeros")
@@ -17,6 +19,8 @@ def obtener_string(mensaje):
     return palabra
 
 def ingresar_nombre_jugadores():
+    """Solicita el numero de jugadores y sus nombres. Verifica que la cantidad de jugaddores
+    no supere los 10 y devuelve la lista de jugadores ordenadas aleatororeamente. Realizada por andres"""
     seguir = True
     listaJugadores = []
 
@@ -35,7 +39,7 @@ def ingresar_nombre_jugadores():
 
 def imprimir_lista_jugadores(listaJugadores):
     """esta funcion recibe la lista de jugadores creada anteriormente y va a imprimir\
-    una lista random de jugadores para que los usuarios sepan el orden de juego"""
+    la lista de jugadores para que los usuarios sepan el orden de juego. Realizada por andres"""
 
     print("el orden de juego sera:")
     for index in range(len(listaJugadores)):
@@ -45,7 +49,7 @@ def imprimir_lista_jugadores(listaJugadores):
 
 def obtener_cantidad_de_letras_en_palabra():
     "funcion que pide a los jugadores la longitud de la palabra a adivinar , corrobora que sea mayorigual a 5\
-    una vez que tiene el valor, devuelve el valor de la longitud"
+    una vez que tiene el valor, devuelve el valor de la longitud.Realizado por andres"
     seguir = True
     while seguir:
         letrasEnPalabra = obtener_numero("Ingrese la cantidad de letras en la palabra: ")
@@ -56,6 +60,9 @@ def obtener_cantidad_de_letras_en_palabra():
     return letrasEnPalabra
 
 def crear_diccionario_palabras_longitud(listaPalabrasPotenciales):
+    """Esta funcion crea un diccionario cuyos keys son las longitudes de palabra y contiene una lista desde
+    la cual se van a obtener las palabras a adivinar. a partir de este diccionario se verifca si las palabras
+    de x longitud alcanzan para la cantidad de jugadores. Realizado por andres"""
 
     diccionarioLongitudPalabras={}
 
@@ -73,7 +80,7 @@ def crear_diccionario_palabras_longitud(listaPalabrasPotenciales):
 def obtiene_lista_palabras_a_adivinar(diccionarioLongitudPalabras,cantidadJugadores):
     """Esta funcion pide que se ingrese el tamaño de la palabra a adivinar y si para esa
     cantidad no hay suficientes palabras pide que se ingrese un nuevo valor.
-    devuelve la lista random de palabras de ese tamaño"""
+    devuelve la lista random de palabras de ese tamaño. Realizado por andres"""
 
     flag=True
     listaPalabrasAAdivinar=[]
@@ -93,6 +100,9 @@ def obtiene_lista_palabras_a_adivinar(diccionarioLongitudPalabras,cantidadJugado
     return listaPalabrasAAdivinar
 
 def generar_lista_de_palabras_a_adivinar(listaDeJugadores):
+    """Esta funcion llama al modulo de precondiciones y llama a las funciones que generan la lista de palabras.
+    se usa en la primera ronda y en las subsiguientes rondas, cuando es llamada desde main. Realizado por andres"""
+
     listaDePalabrasPotenciales=precondiciones.precondiciones()
     diccionarioLongitudPalabras=crear_diccionario_palabras_longitud(listaDePalabrasPotenciales)
     listaDePalabrasAAdivinar=obtiene_lista_palabras_a_adivinar(diccionarioLongitudPalabras,len(listaDeJugadores))
@@ -100,6 +110,10 @@ def generar_lista_de_palabras_a_adivinar(listaDeJugadores):
     return listaDePalabrasAAdivinar
 
 def preparacion_juego():
+    """Esta es la funcion principal de este modulo se invoca desde main y se encarga de ingresar los nombres de los jugadores
+    y generar la lista de palabras para la primera ronda
+    Tambien devuelve las estructuras de datos necesarias en main para el funcionamiento del programa jugadores, turnos, acumulados
+    Realizada por andres."""
 
     jugadores={}
     turnos=[]

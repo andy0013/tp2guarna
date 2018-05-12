@@ -1,92 +1,49 @@
 import precondiciones
 import random
 
-
-def Palabras(oraciones):
-    listaf = []
-    for i in oraciones :
-        lista = re.split("[(, \-!?:).\";><1234567890]+" , i )
-        listaf.extend(lista)
-    return sorted(listaf)
-
-def EliminarRepes(texto):
-    final = []
-    for i in texto:
-        if not i in final:
-            final.append(i)
-    return final
-
-def CrearDicc(palabras):
-    dicc = {}
-    for n in palabras:
-        if n not in dicc :
-            dicc[n] = 1
-        else:
-            dicc[n] += 1
-    del dicc['']
-    return dicc
-
-def CantDePalabras(dicc):
-    """no es lo mismo que usar len"""
-    contador = 0
-    for n in dicc :
-        contador += 1
-    return contador
-def numero(mensaje):
-    x = input(mensaje)
-    while not x.isdigit():
+def obtener_numero(mensaje):
+    numero = input(mensaje)
+    while not numero.isdigit():
         print("ingrese numero no letras")
-        x = input(mensaje)
-    return x
+        numero = input(mensaje)
+    return numero
 
 
-def palabra(mensaje):
-    x = input(mensaje)
-    while x.isdigit():
+def obtener_palabra(mensaje):
+    palabra = input(mensaje)
+    while palabra.isdigit():
         print("no ingresar numeros")
-        x = input(mensaje)
-    return x
+        palabra = input(mensaje)
+    return palabra
 
-def usuarios_nombres(mensaje,mensajedos):
+def ingresar_nombre_jugadores():
     seguir = True
-    nombre = " "
-    lista_con_nombres = []
+    nombre = ""
+    listaJugadores = []
+
     while seguir:
-        personas = int(numero(mensaje))
-        if personas <= 10:
+        cantidadJugadores = int(obtener_numero("Ingrese el numero de jugadores: "))
+        if cantidadJugadores <= 10:
             seguir = False
         else:
             print("La cantidad de jugadores permitida debe ser menor a 10 , ingrese nuevamente un valor adecuado")
-    for nombre in range(personas):
-        nombre = palabra(mensajedos)
-        lista_con_nombres += [nombre]
-    return lista_con_nombres
 
-def l_random(lista):
+    for i in range(cantidadJugadores):
+        nombreJugador = obtener_palabra("Ingrese el nombre completo de los jugadores:")
+        listaJugadores.append(nombreJugador)
+    return listaJugadores
+
+def obtener_lista_jugadores(listaJugadores):
     "esta funcion recibe la lista de jugadores creada anteriormente y va a imprimir\
     una lista random de jugadores para que los usuarios sepan el orden de juego\
     y va a devolver la lista random "
 
-    random.shuffle(lista,random.random)
+    random.shuffle(listaJugadores)
     print("el orden de juego sera:")
-    for nombre in range(len(lista)):
-        print(nombre+1 , lista[nombre])
-    return lista
-
-def lista_de_las_palabras_con_su_longitud(lista):
-    "esta funcion va a llamar a la lista proporcionada por Lean(\
-    una lista de palabras sin repetir , etc) y va a crear un diccionario con la palabra y, su valor\
-    que va a ser la cantidad de letras que tiene , para que despues los usuarios eligan la cantidad\
-    de letras que van a adivinar y otorgarles las palabras,despues devuelve una lista que tiene\
-    la palabra y cantidad de letras"
-
-    palabra_y_longitud = []
-    palabras_y_numero_letras = {}
-    for palabras in lista:
-        valor = len(palabras)
-        palabras_y_numero_letras[palabras] = valor
-    palabra_y_longitud = palabras_y_numero_letras.items()
-    return palabra_y_longitud
+    for index in range(len(listaJugadores)):
+        posicion=index+1
+        print(posicion , listaJugadores[index])
+    return listaJugadores
 
 def cantidaddeletras(mensaje,mensaje2):
     "funcion que pide a los jugadores la longitud de la palabra a adivinar , corrobora que sea mayorigual a 5\
@@ -99,6 +56,8 @@ def cantidaddeletras(mensaje,mensaje2):
         else:
             print(mensaje2)
     return letrasenpalabra
+
+def obtiene_lista_palabras_a_adivinar(lista):
 
 def darlistadepalabrasentextoconletrapedida(lista_palabras_en_texto,numero_de_letras):
     "esta funcion recibe la lista de de palabras con su valor de longitud de letras\

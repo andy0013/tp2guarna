@@ -18,7 +18,6 @@ def obtener_string(mensaje):
 
 def ingresar_nombre_jugadores():
     seguir = True
-    nombre = ""
     listaJugadores = []
 
     while seguir:
@@ -31,14 +30,13 @@ def ingresar_nombre_jugadores():
     for i in range(cantidadJugadores):
         nombreJugador = obtener_string("Ingrese el nombre completo de los jugadores:")
         listaJugadores.append(nombreJugador)
+        random.shuffle(listaJugadores)
     return listaJugadores
 
 def imprimir_lista_jugadores(listaJugadores):
-    "esta funcion recibe la lista de jugadores creada anteriormente y va a imprimir\
-    una lista random de jugadores para que los usuarios sepan el orden de juego\
-    y va a devolver la lista random "
+    """esta funcion recibe la lista de jugadores creada anteriormente y va a imprimir\
+    una lista random de jugadores para que los usuarios sepan el orden de juego"""
 
-    random.shuffle(listaJugadores)
     print("el orden de juego sera:")
     for index in range(len(listaJugadores)):
         posicion=index+1
@@ -90,12 +88,15 @@ def obtiene_lista_palabras_a_adivinar(diccionarioLongitudPalabras,cantidadJugado
     for i in range(cantidadJugadores):
         listaPalabrasAAdivinar.append(diccionarioLongitudPalabras[longitudPalabra][i])
 
-    return random.shuffle(listaPalabrasAAdivinar)
+    random.shuffle(listaPalabrasAAdivinar)
+
+    return listaPalabrasAAdivinar
 
 
 def preparacion_juego():
 
     jugadores={}
+    turnos=[]
 
     listaDePalabrasPotenciales=precondiciones.precondiciones()
 
@@ -105,5 +106,13 @@ def preparacion_juego():
     listaDePalabrasAAdivinar=obtiene_lista_palabras_a_adivinar(diccionarioLongitudPalabras,len(listaDeJugadores))
 
     i=0
-    for jugador in listaDeJugadores
-        jug
+    for jugador in listaDeJugadores:
+        jugadores[jugador]=[listaDePalabrasAAdivinar[i],0,0,0]
+        turnos.append(jugador)
+        i+=1
+
+    return jugadores,turnos
+
+jugadores,turnos=preparacion_juego()
+print (jugadores)
+print (turnos)

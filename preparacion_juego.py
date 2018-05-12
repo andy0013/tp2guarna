@@ -112,7 +112,3 @@ def preparacion_juego():
         i+=1
 
     return jugadores,turnos
-
-jugadores,turnos=preparacion_juego()
-print (jugadores)
-print (turnos)

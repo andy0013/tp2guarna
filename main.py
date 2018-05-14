@@ -164,8 +164,8 @@ while (salir != True):
         for idx,jugador in enumerate(turnos):
             palabraAAdivinar=datos_jugador(jugador,jugadores)
             mostrar_estado_actual(idx,listaLetrasAcertadas,listaLetrasArriesgadas)
-            letra=input("Ingrese una letra:")
 
+            letra=input("Ingrese una letra:")
             while (len(letra) > 1 or not letra.isalpha()):
                 letra=input("Ingrese una letra:")
 

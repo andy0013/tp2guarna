@@ -1,6 +1,6 @@
 import random
 
-def ordenarPorPuntaje(acumulados):
+def ordenar_por_puntaje(acumulados):
     """ Esta funcion ordena por puntaje y a los jugadores que tienen igual puntaje los ordena aleatoriamente
     para los turnos de la partida. Realizada por Ignacio Liñeira Saavedra"""
 
@@ -17,7 +17,7 @@ def ordenarPorPuntaje(acumulados):
 def nueva_partida(acumulados):
     """Esta funcion es llamada desde primeraronda para que imprima los acumulados y devuelva los nuevos turnos,
     para cada nueva partida. Realizada por Ignacio Liñeira Saavedra"""
-    lista=ordenarPorPuntaje(acumulados)
+    lista=ordenar_por_puntaje(acumulados)
     turnos=[]
     for jugador in lista:
         jugador=jugador[0]

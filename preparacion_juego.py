@@ -53,7 +53,7 @@ def obtener_cantidad_de_letras_en_palabra():
     seguir = True
     while seguir:
         letrasEnPalabra = obtener_numero("Ingrese la cantidad de letras en la palabra: ")
-        if letrasEnPalabra > 5:
+        if letrasEnPalabra >= 5:
             seguir = False
         else:
             print("La cantidad de letras en la palabra a adivinar debe ser mayor que 5")
@@ -87,15 +87,15 @@ def obtiene_lista_palabras_a_adivinar(diccionarioLongitudPalabras,cantidadJugado
 
     while flag:
         longitudPalabra=obtener_cantidad_de_letras_en_palabra()
-        if (len(diccionarioLongitudPalabras[longitudPalabra]) >= cantidadJugadores):
+        if (longitudPalabra in diccionarioLongitudPalabras.keys() and len(diccionarioLongitudPalabras[longitudPalabra]) >= cantidadJugadores):
             flag=False
         else:
             print("No hay suficientes palabras de la longitud {0} para la cantidad de jugadores {1}. Vuelva a ingresar otro tamaño de palabra".format(longitudPalabra,cantidadJugadores))
 
+    random.shuffle(diccionarioLongitudPalabras[longitudPalabra])
+
     for i in range(cantidadJugadores):
         listaPalabrasAAdivinar.append(diccionarioLongitudPalabras[longitudPalabra][i])
-
-    random.shuffle(listaPalabrasAAdivinar)
 
     return listaPalabrasAAdivinar
 

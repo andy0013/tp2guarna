@@ -166,9 +166,11 @@ while (salir != True):
             mostrar_estado_actual(idx,listaLetrasAcertadas,listaLetrasArriesgadas)
 
             letra=input("Ingrese una letra:")
+
             while (len(letra) > 1 or not letra.isalpha()):
                 letra=input("Ingrese una letra:")
 
+            letra=letra.upper()
             if letra in palabraAAdivinar:
                 """Esta funcion ademas de insertar las letras en las posiciones incrementa los aciertos y el puntaje"""
                 ganoEljugador=mostrar_posicion_marcar_letra(idx,jugador,jugadores,diccionarioJugador,listaLetrasArriesgadas,listaLetrasAcertadas,letra)

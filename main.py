@@ -141,6 +141,9 @@ turnos=['pedro','juan']
 
 Representan nombre,cantidad de partidas totales,aciertos totales,desaciertos totales,puntaje total
 acumulados={'juan':[0,0,0,0],'pedro':[0,0,0,0]}
+
+los aciertos y desaciertos si bien se acumulan, no se muestran en todas las rondas acumulados
+porque no le veo sentido, son parametros de cada partida.
 """
 
 salir=False

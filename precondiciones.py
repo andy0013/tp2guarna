@@ -1,4 +1,3 @@
-import re
 import texto
 import unicodedata
 
@@ -9,16 +8,20 @@ def elimina_tildes(s):
 def obtiene_lista_palabras(oraciones):
     """Obtiene una lista de palabras del texto suministrado por la catedra. Realizada por Leandro"""
     listaf = []
-    for i in oraciones :
-        lista = re.split("[(, \-!?:)\"\.;><1234567890]+" , i.upper())
-        listaf.extend(lista)
+    t = ""
+    parametro = "<>;0123456789!?/\[]{}().,:\-\"\'"
+    for oracion in oraciones :
+        for c in oracion:
+            if not c in parametro:
+                t += c.upper()
+    listaf = t.split(" ")
     return sorted(listaf)
 
 def eliminar_repetidas(lista):
     """Elimina las palabras repetidas. Realizada por Leandro"""
     final = []
     for i in lista:
-        if not i in final:
+        if not i in final and not len(i) < 5:
             final.append(elimina_tildes(i))
     return sorted(final)
 
@@ -30,8 +33,8 @@ def frecuencia_de_palabras(palabras):
         if i not in diccionario.keys():
             diccionario[i]=0
         diccionario[i] += 1
-
     del diccionario['']
+    del diccionario['A']
     return diccionario
 
 def precondiciones():

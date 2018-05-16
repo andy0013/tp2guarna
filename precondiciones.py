@@ -22,29 +22,34 @@ def eliminar_repetidas(lista):
             final.append(elimina_tildes(i))
     return sorted(final)
 
-def crear_diccionario(validas, palabras):
+def frecuencia_de_palabras(palabras):
     """Crea un diccionario a partir de la lista de palbras y la frecuenccia de dichas palabras. Realizada por Leandro."""
     diccionario = {}
-    for n in validas:
-        diccionario[n] = 0
+
     for i in palabras:
-        if i in diccionario:
-            diccionario[i] += 1
+        if i not in diccionario.keys():
+            diccionario[i]=0
+        diccionario[i] += 1
+
     del diccionario['']
     return diccionario
 
 def precondiciones():
     """Devuelve una lista de palabras en mayusculas y sin acentos. Realizada por Leandro"""
+    laux=[]
     oraciones = texto.obtener_texto()
     palabrasEnTexto = obtiene_lista_palabras(oraciones)
-    palabrasValidas = eliminar_repetidas(palabrasEnTexto)
-    diccionario = crear_diccionario(palabrasValidas, palabrasEnTexto)
+    diccionario = frecuencia_de_palabras(palabrasEnTexto)
+    listaSinRepetidas=eliminar_repetidas(palabrasEnTexto)
     print("#################################### El AHORCADO ################################")
     print("A continuacion se imprimira el diccionario de palabras y la frecuencia con la que aparecen en el texto")
     print("Las palabras se convirtieron a mayusculas y se le removieron los acentos para facilitar el juego")
-    print(diccionario)
+    laux=sorted(diccionario.items(),key=lambda x:x[0])
+    for tupla in laux:
+        print(tupla)
+
     print("#################################################################################")
     print("Cantidad de palabras en el diccionario: ", len(diccionario))
-    return(list(diccionario.keys()))
+    return listaSinRepetidas
 
 

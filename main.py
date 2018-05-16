@@ -161,7 +161,20 @@ while (salir != True):
 
     while(len(turnos) != 0):
 
-        for idx,jugador in enumerate(turnos):
+        tamanioTurnos=len(turnos)
+        if turnos.count("")==tamanioTurnos:
+            break
+
+        idx=0
+
+        while(idx < tamanioTurnos):
+            desaciertos=0
+            jugador=turnos[idx]
+
+            if (jugador==""):
+                idx+=1
+                continue
+
             palabraAAdivinar=datos_jugador(jugador,jugadores)
             mostrar_estado_actual(idx,listaLetrasAcertadas,listaLetrasArriesgadas)
 
@@ -186,11 +199,14 @@ while (salir != True):
                 desaciertos=incrementar_desaciertos(jugador,jugadores)
                 resta_puntos(jugador,jugadores)
 
-            if (desaciertos==7):
-                del turnos[idx]
-                del listaLetrasArriesgadas[idx]
-                del listaLetrasAcertadas[idx]
-                continue
+            if (desaciertos == 7):
+                turnos[idx]=""
+                listaLetrasArriesgadas[idx]=[]
+                listaLetrasAcertadas[idx]=[]
+                break
+
+            if letra not in palabraAAdivinar:
+                idx+=1
 
     if(ganoEljugador):
         print("El jugador {0} gano la partida".format(jugador))

@@ -53,5 +53,3 @@ def precondiciones():
     print("Cantidad de palabras en el diccionario: ", len(diccionario))
     return listaSinRepetidas
 
-lista=precondiciones()
-print(lista)

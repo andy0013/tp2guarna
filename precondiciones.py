@@ -7,22 +7,22 @@ def elimina_tildes(s):
 
 def obtiene_lista_palabras(oraciones):
     """Obtiene una lista de palabras del texto suministrado por la catedra. Realizada por Leandro"""
-    listaf = []
     t = ""
     parametro = "<>;0123456789!?/\[]{}().,:\-\"\'"
     for oracion in oraciones :
         for c in oracion:
             if not c in parametro:
                 t += c.upper()
-    listaf = t.split(" ")
-    return sorted(listaf)
+    lista = t.split(" ")
+    return sorted(lista)
 
 def eliminar_repetidas(lista):
     """Elimina las palabras repetidas. Realizada por Leandro"""
     final = []
     for i in lista:
-        if not i in final and not len(i) < 5:
-            final.append(elimina_tildes(i))
+        laux=elimina_tildes(i)
+        if not laux in final:
+            final.append(laux)
     return sorted(final)
 
 def frecuencia_de_palabras(palabras):
@@ -34,12 +34,10 @@ def frecuencia_de_palabras(palabras):
             diccionario[i]=0
         diccionario[i] += 1
     del diccionario['']
-    del diccionario['A']
     return diccionario
 
 def precondiciones():
     """Devuelve una lista de palabras en mayusculas y sin acentos. Realizada por Leandro"""
-    laux=[]
     oraciones = texto.obtener_texto()
     palabrasEnTexto = obtiene_lista_palabras(oraciones)
     diccionario = frecuencia_de_palabras(palabrasEnTexto)
@@ -55,4 +53,5 @@ def precondiciones():
     print("Cantidad de palabras en el diccionario: ", len(diccionario))
     return listaSinRepetidas
 
-
+lista=precondiciones()
+print(lista)

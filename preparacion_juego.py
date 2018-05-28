@@ -13,8 +13,8 @@ def obtener_numero(mensaje):
 def obtener_string(mensaje):
     """Obtiene un string y verifca que no se ingresen numeros. Realizado por andres"""
     palabra = input(mensaje)
-    while palabra.isdigit():
-        print("no ingresar numeros")
+    while not palabra.isalpha() or palabra !=" ":
+        print("Ingresar solo letras o espacios en blanco")
         palabra = input(mensaje)
     return palabra
 

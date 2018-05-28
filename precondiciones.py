@@ -1,9 +1,6 @@
 import texto
-import unicodedata
 
-def elimina_tildes(s):
-    """Elimina las tildes de un string. Realizada por Leandro"""
-    return ''.join(c for c in unicodedata.normalize('NFD', s) if unicodedata.category(c) != 'Mn')
+
 
 def obtiene_lista_palabras(oraciones):
     """Obtiene una lista de palabras del texto suministrado por la catedra. Realizada por Leandro"""

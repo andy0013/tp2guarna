@@ -1,3 +1,10 @@
+def imprimir_configuracion(diccionario):
+    print("Los parametros de configuracion son los siguientes:\n")
+
+    for tupla in diccionario.items():
+        print(tupla)
+
+
 def leer_archivo_configuracion(file):
 
     diccionario={'MAX_USUARIOS': 10,'LONG_PALABRA_MIN':5,'MAX_DESACIERTOS':7,'PUNTOS_ACIERTOS':2,'PUNTOS_DESACIERTOS':1,'PUNTOS_ADIVINA':30}
@@ -17,5 +24,6 @@ def leer_archivo_configuracion(file):
 
 file=open("configuracion.txt","r")
 diccionario_configuracion=leer_archivo_configuracion(file)
+imprimir_configuracion(diccionario_configuracion)
 
 

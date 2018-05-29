@@ -1,3 +1,4 @@
+import re
 import precondiciones
 import random
 from configuracion import diccionario_configuracion
@@ -14,7 +15,7 @@ def obtener_numero(mensaje):
 def obtener_string(mensaje):
     """Obtiene un string y verifca que no se ingresen numeros. Realizado por andres"""
     palabra = input(mensaje)
-    while not palabra.isalpha() or palabra !=" ":
+    while (not re.fullmatch(r'[A-Za-z\s]+',palabra)):
         print("Ingresar solo letras o espacios en blanco")
         palabra = input(mensaje)
     return palabra

@@ -3,6 +3,7 @@ def imprimir_configuracion(diccionario):
 
     for tupla in diccionario.items():
         print(tupla)
+    print("\n")
 
 
 def leer_archivo_configuracion(file):
@@ -16,7 +17,7 @@ def leer_archivo_configuracion(file):
         if lista==[""]:
             return diccionario
         key=lista[0]
-        value=lista[1]
+        value=int(lista[1])
         diccionario[key]=value
         registro=file.readline()
 

@@ -1,5 +1,6 @@
 import precondiciones
 import random
+from configuracion import diccionario_configuracion
 
 def obtener_numero(mensaje):
     """Obtiene un numero y verifica que no se ingresen letras. Realizado por andres"""
@@ -22,14 +23,15 @@ def ingresar_nombre_jugadores():
     """Solicita el numero de jugadores y sus nombres. Verifica que la cantidad de jugaddores
     no supere los 10 y devuelve la lista de jugadores ordenadas aleatororeamente. Realizada por andres"""
     seguir = True
+    MAX_JUGADORES=diccionario_configuracion['MAX_USUARIOS']
     listaJugadores = []
 
     while seguir:
         cantidadJugadores = obtener_numero("Ingrese el numero de jugadores: ")
-        if cantidadJugadores <= 10:
+        if cantidadJugadores <= MAX_JUGADORES:
             seguir = False
         else:
-            print("La cantidad de jugadores permitida debe ser menor a 10 , ingrese nuevamente un valor adecuado")
+            print("La cantidad de jugadores permitida debe ser menor a {0} , ingrese nuevamente un valor adecuado".format(MAX_JUGADORES))
 
     for i in range(cantidadJugadores):
         nombreJugador = obtener_string("Ingrese el nombre completo de los jugadores:")
@@ -51,12 +53,13 @@ def obtener_cantidad_de_letras_en_palabra():
     "funcion que pide a los jugadores la longitud de la palabra a adivinar , corrobora que sea mayorigual a 5\
     una vez que tiene el valor, devuelve el valor de la longitud.Realizado por andres"
     seguir = True
+    LONG_PALABRA_MINIMA=diccionario_configuracion['LONG_PALABRA_MIN']
     while seguir:
         letrasEnPalabra = obtener_numero("Ingrese la cantidad de letras en la palabra: ")
-        if letrasEnPalabra >= 5:
+        if letrasEnPalabra >= LONG_PALABRA_MINIMA:
             seguir = False
         else:
-            print("La cantidad de letras en la palabra a adivinar debe ser mayor que 5")
+            print("La cantidad de letras en la palabra a adivinar debe ser mayor que {0}".format(LONG_PALABRA_MINIMA))
     return letrasEnPalabra
 
 def crear_diccionario_palabras_longitud(listaPalabrasPotenciales):

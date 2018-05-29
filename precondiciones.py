@@ -1,7 +1,5 @@
 import texto
 
-
-
 def obtiene_lista_palabras(oraciones):
     """Obtiene una lista de palabras del texto suministrado por la catedra. Realizada por Leandro"""
     t = ""

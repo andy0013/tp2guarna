@@ -1,5 +1,6 @@
 import preparacion_juego
 import nueva_partida
+from configuracion import diccionario_configuracion
 
 def datos_jugador(jugador,jugadores,resumen=False):
     """Esta funcion muestra los datos acumulados de los jugadores y genera un resumen para mostrar al final de la partida.
@@ -20,9 +21,9 @@ def datos_jugador(jugador,jugadores,resumen=False):
         print("\n")
     return palabra
 
-def incrementar_desaciertos(jugador,jugadores):
+def incrementar_desaciertos(jugador,jugadores,puntosDesacierto=1):
     """Esta funcion se utiliza para incrementar los desaciertos. realizada por Pablo Arias"""
-    jugadores[jugador][2]+=1
+    jugadores[jugador][2]+=puntosDesacierto
     return jugadores[jugador][2]
 
 def suma_aciertos(jugador,jugadores):
@@ -84,7 +85,7 @@ def mostrar_posicion_marcar_letra(idx,jugador,jugadores,diccionarioJugador,lista
     for posicionLetra in diccionarioJugador[jugador][letra]:
         if letra not in listaLetrasAcertadas[idx]:
             suma_aciertos(jugador,jugadores)
-            suma_puntos(jugador,jugadores)
+            suma_puntos(jugador,jugadores,PUNTOS_ACIERTOS)
         listaLetrasAcertadas[idx][posicionLetra]=letra
 
     if letra not in listaLetrasAcertadas[idx]:
@@ -142,6 +143,10 @@ turnos=['pedro','juan']
 Representan nombre,cantidad de partidas totales,aciertos totales,desaciertos totales,puntaje total
 acumulados={'juan':[0,0,0,0],'pedro':[0,0,0,0]}
 """
+MAX_DESACIERTOS=diccionario_configuracion['MAX_DESACIERTOS']
+PUNTOS_ACIERTOS=diccionario_configuracion['PUNTOS_ACIERTOS']
+PUNTOS_DESACIERTOS=diccionario_configuracion['PUNTOS_DESACIERTOS']
+PUNTOS_ADIVINA=diccionario_configuracion['PUNTOS_ADIVINA']
 
 salir=False
 
@@ -174,17 +179,17 @@ while (salir != True):
                 ganoEljugador=mostrar_posicion_marcar_letra(idx,jugador,jugadores,diccionarioJugador,listaLetrasArriesgadas,listaLetrasAcertadas,letra)
 
                 if (ganoEljugador):
-                    suma_puntos(jugador,jugadores,30)
+                    suma_puntos(jugador,jugadores,PUNTOS_ADIVINA)
                     turnos=[]
                     break
             else:
                 print("La letra {0} no se encuentra en la palabra a adivinar".format(letra))
                 print("\n")
                 listaLetrasArriesgadas[idx].append(letra)
-                desaciertos=incrementar_desaciertos(jugador,jugadores)
+                desaciertos=incrementar_desaciertos(jugador,jugadores,PUNTOS_DESACIERTOS)
                 resta_puntos(jugador,jugadores)
 
-            if (desaciertos==7):
+            if (desaciertos==MAX_DESACIERTOS):
                 del turnos[idx]
                 del listaLetrasArriesgadas[idx]
                 del listaLetrasAcertadas[idx]

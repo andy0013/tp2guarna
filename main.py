@@ -141,9 +141,6 @@ turnos=['pedro','juan']
 
 Representan nombre,cantidad de partidas totales,aciertos totales,desaciertos totales,puntaje total
 acumulados={'juan':[0,0,0,0],'pedro':[0,0,0,0]}
-
-los aciertos y desaciertos si bien se acumulan, no se muestran en todas las rondas acumulados
-porque no le veo sentido, son parametros de cada partida.
 """
 
 salir=False
@@ -164,29 +161,14 @@ while (salir != True):
 
     while(len(turnos) != 0):
 
-        tamanioTurnos=len(turnos)
-        if turnos.count("")==tamanioTurnos:
-            break
-
-        idx=0
-
-        while(idx < tamanioTurnos):
-            desaciertos=0
-            jugador=turnos[idx]
-
-            if (jugador==""):
-                idx+=1
-                continue
-
+        for idx,jugador in enumerate(turnos):
             palabraAAdivinar=datos_jugador(jugador,jugadores)
             mostrar_estado_actual(idx,listaLetrasAcertadas,listaLetrasArriesgadas)
 
             letra=input("Ingrese una letra:")
-
             while (len(letra) > 1 or not letra.isalpha()):
                 letra=input("Ingrese una letra:")
 
-            letra=letra.upper()
             if letra in palabraAAdivinar:
                 """Esta funcion ademas de insertar las letras en las posiciones incrementa los aciertos y el puntaje"""
                 ganoEljugador=mostrar_posicion_marcar_letra(idx,jugador,jugadores,diccionarioJugador,listaLetrasArriesgadas,listaLetrasAcertadas,letra)
@@ -202,14 +184,11 @@ while (salir != True):
                 desaciertos=incrementar_desaciertos(jugador,jugadores)
                 resta_puntos(jugador,jugadores)
 
-            if (desaciertos == 7):
-                turnos[idx]=""
-                listaLetrasArriesgadas[idx]=[]
-                listaLetrasAcertadas[idx]=[]
-                break
-
-            if letra not in palabraAAdivinar:
-                idx+=1
+            if (desaciertos==7):
+                del turnos[idx]
+                del listaLetrasArriesgadas[idx]
+                del listaLetrasAcertadas[idx]
+                continue
 
     if(ganoEljugador):
         print("El jugador {0} gano la partida".format(jugador))

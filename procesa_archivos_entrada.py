@@ -27,6 +27,7 @@ def obtiene_lista_palabras_validas(oracion):
     lista = t.split(" ")
     try:
         lista.remove("")
+        lista.remove(",")
     except Exception:
         pass
     return lista
@@ -42,14 +43,15 @@ def reemplaza_caracteres(oracion,fichero_reemplazo):
         lista=leer_reemplazo(fichero_reemplazo)
     return oracion
 
-file_reemplazo=open("reemplazo.csv","r",encoding="utf8")
+file_reemplazo=open("reemplazo.csv","r",encoding="latin1")
 
 def procesa_archivo(fichero_entrada,file_reemplazo):
 
+    fichero_salida=fichero_entrada + "_out"
+    fichero_salida=open(fichero_salida,"w+")
     fichero_entrada=open(fichero_entrada,"r")
-    fichero_salida=open(fichero_entrada + "_out","w")
-    fichero_desordenado=open("archivo_desordenado.txt","r+",encoding="utf8")
-    fichero_temporal=open("tmp.txt","r+",encoding="latin1")
+    fichero_desordenado=open("archivo_desordenado.txt","w+",encoding="latin1")
+    fichero_temporal=open("tmp.txt","w+",encoding="latin1")
 
     procesa_archivo_entrada(fichero_entrada,fichero_temporal)
     oracion=leer_archivo_entrada(fichero_temporal)
@@ -69,5 +71,5 @@ def procesa_archivo(fichero_entrada,file_reemplazo):
 
 #-----------------------------------------------------------------------------------------------------------------#
 
-procesa_archivo(fichero_entrada,fichero_salida,file_reemplazo)
+procesa_archivo("prueba.txt",file_reemplazo)
 file_reemplazo.close()

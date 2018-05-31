@@ -39,9 +39,9 @@ def reemplaza_caracteres(oracion,fichero_reemplazo):
         char_a_reemplazar,reemplazo=lista
         char_a_reemplazar=str(char_a_reemplazar)
         if char_a_reemplazar in oracion:
-            oracion=oracion.replace(char_a_reemplazar,reemplazo)
+            oracion_final=oracion.replace(char_a_reemplazar,reemplazo)
         lista=leer_reemplazo(fichero_reemplazo)
-    return oracion
+    return oracion_final
 
 file_reemplazo=open("reemplazo.csv","r",encoding="latin1")
 

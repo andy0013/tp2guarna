@@ -43,11 +43,14 @@ def reemplaza_caracteres(oracion,fichero_reemplazo):
     return oracion
 
 file_reemplazo=open("reemplazo.csv","r",encoding="utf8")
-fichero_entrada=open("La araña negra - tomo 1.txt","r")
-fichero_desordenado=open("archivo_desordenado.txt","r+",encoding="utf8")
-fichero_temporal=open("tmp.txt","r+",encoding="latin1")
 
-def procesa_archivo(fichero_entrada,fichero_desordenado,fichero_temporal,file_reemplazo):
+def procesa_archivo(fichero_entrada,file_reemplazo):
+
+    fichero_entrada=open(fichero_entrada,"r")
+    fichero_salida=open(fichero_entrada + "_out","w")
+    fichero_desordenado=open("archivo_desordenado.txt","r+",encoding="utf8")
+    fichero_temporal=open("tmp.txt","r+",encoding="latin1")
+
     procesa_archivo_entrada(fichero_entrada,fichero_temporal)
     oracion=leer_archivo_entrada(fichero_temporal)
 
@@ -58,10 +61,13 @@ def procesa_archivo(fichero_entrada,fichero_desordenado,fichero_temporal,file_re
             fichero_desordenado.write(palabra+"\n")
         oracion=leer_archivo_entrada(fichero_temporal)
 
-procesa_archivo(fichero_entrada,fichero_desordenado,fichero_temporal,file_reemplazo)
 
 
+    fichero_entrada.close()
+    fichero_desordenado.close
+    fichero_temporal.close()
+
+#-----------------------------------------------------------------------------------------------------------------#
+
+procesa_archivo(fichero_entrada,fichero_salida,file_reemplazo)
 file_reemplazo.close()
-fichero_entrada.close()
-fichero_desordenado.close
-fichero_temporal.close()

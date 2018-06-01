@@ -45,14 +45,25 @@ def reemplaza_caracteres(oracion,fichero_reemplazo):
     return oracion_final
 
 
-def ordena_archivo_elimina_duplicados(filename):
-    filename.seek(0)
+def elimina_duplicados(fichero_desordenado,fichero_salida):
+    fichero_salida=open(fichero_salida,"w+")
+    fichero_desordenado.seek(0)
 
+    registro=fichero_desordenado.readline()
+    fichero_salida.write(registro)
+
+    for registro in fichero_desordenado:
+        fichero_salida.seek(0)
+        for registro_salida in fichero_salida:
+            if(registro==registro_salida):
+                guardar=False
+
+        if (guardar):
+            fichero_salida.write(registro)
 
 def procesa_archivo(fichero_entrada,file_reemplazo):
 
     fichero_salida=fichero_entrada + "_out"
-    fichero_salida=open(fichero_salida,"w+")
     fichero_entrada=open(fichero_entrada,"r+")
     fichero_desordenado=open("archivo_desordenado.txt","w+")
     fichero_temporal=open("tmp.txt","w+")
@@ -67,7 +78,7 @@ def procesa_archivo(fichero_entrada,file_reemplazo):
             fichero_desordenado.write(palabra+"\n")
         oracion=leer_archivo_entrada(fichero_temporal)
 
-    ordena_archivo_elimina_duplicados(fichero_desordenado)
+    elimina_duplicados(fichero_desordenado,fichero_salida)
 
     fichero_entrada.close()
     fichero_desordenado.close
@@ -79,7 +90,7 @@ def procesa_archivo(fichero_entrada,file_reemplazo):
 
 file_reemplazo=open("reemplazo.csv","r+",encoding = "utf8")
 
-procesa_archivo("prueba.txt",file_reemplazo)
+procesa_archivo("Cuentos.txt",file_reemplazo)
 
 
 file_reemplazo.close()

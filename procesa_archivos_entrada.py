@@ -51,13 +51,23 @@ def recorre_archivo(filename,valor):
             return True
     return False
 
-def elimina_duplicados(fichero_desordenado,fichero_salida):
-    fichero_salida=open(fichero_salida,"w+")
+def elimina_duplicados_y_ordena(fichero_desordenado,fichero_salida):
+    fsalida=open(fichero_salida,"w+")
     fichero_desordenado.seek(0)
 
     for registro in fichero_desordenado:
-        if (not recorre_archivo(fichero_salida,registro)):
-            fichero_salida.write(registro)
+        if (not recorre_archivo(fsalida,registro)):
+            fsalida.write(registro)
+
+    fsalida.seek(0)
+    lista=fsalida.readlines();
+    lista.sort()
+
+    fsalida.close()
+    fsalida=open(fichero_salida,"w+")
+
+    for item in lista:
+        fsalida.write(item)
 
 def procesa_archivo(fichero_entrada,file_reemplazo):
 
@@ -76,7 +86,7 @@ def procesa_archivo(fichero_entrada,file_reemplazo):
             fichero_desordenado.write(palabra+"\n")
         oracion=leer_archivo_entrada(fichero_temporal)
 
-    elimina_duplicados(fichero_desordenado,fichero_salida)
+    elimina_duplicados_y_ordena(fichero_desordenado,fichero_salida)
 
     fichero_entrada.close()
     fichero_desordenado.close
@@ -88,7 +98,7 @@ def procesa_archivo(fichero_entrada,file_reemplazo):
 
 file_reemplazo=open("reemplazo.csv","r+",encoding = "utf8")
 
-procesa_archivo("Cuentos.txt",file_reemplazo)
+procesa_archivo("prueba.txt",file_reemplazo)
 
 
 file_reemplazo.close()

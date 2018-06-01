@@ -1,4 +1,4 @@
-# coding=utf8
+
 def remueve_valores_de_lista(lista, val):
         while val in lista:
             lista.remove(val)

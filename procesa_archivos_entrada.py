@@ -44,21 +44,19 @@ def reemplaza_caracteres(oracion,fichero_reemplazo):
         lista=leer_reemplazo(fichero_reemplazo)
     return oracion_final
 
+def recorre_archivo(filename,valor):
+    filename.seek(0)
+    for registro in filename:
+        if registro==valor:
+            return True
+    return False
 
 def elimina_duplicados(fichero_desordenado,fichero_salida):
     fichero_salida=open(fichero_salida,"w+")
     fichero_desordenado.seek(0)
 
-    registro=fichero_desordenado.readline()
-    fichero_salida.write(registro)
-
     for registro in fichero_desordenado:
-        fichero_salida.seek(0)
-        for registro_salida in fichero_salida:
-            if(registro==registro_salida):
-                guardar=False
-
-        if (guardar):
+        if (not recorre_archivo(fichero_salida,registro)):
             fichero_salida.write(registro)
 
 def procesa_archivo(fichero_entrada,file_reemplazo):

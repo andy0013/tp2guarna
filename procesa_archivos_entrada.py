@@ -12,7 +12,7 @@ def procesa_archivo_entrada(fichero_entrada,fichero_temporal):
 
 def leer_archivo_entrada(fichero_temporal):
 
-    registro=fichero_temporal.readline().rstrip("\n\s").lstrip("\n\s")
+    registro=fichero_temporal.readline().rstrip("\n").lstrip("\n")
     return registro
 
 def leer_reemplazo(fichero_reemplazo):
@@ -23,11 +23,14 @@ def leer_reemplazo(fichero_reemplazo):
 
 def obtiene_lista_palabras_validas(oracion):
     t = ""
-    parametro = "\_!?¡¿#*=<>;0123456789!?/\[]{}().,:\-\"\''"
+    parametro = "º\_!?¡¿#*=<>;0123456789!?/\[]{}().,:\-\"\''"
     for registro in oracion:
         for c in registro:
             if not c in parametro:
-                t += c.upper()
+                t += c
+            else:
+                 t +=' '
+    t=t.upper()
     lista = t.split(" ")
     remueve_valores_de_lista(lista,"")
     return lista
@@ -36,7 +39,7 @@ def reemplaza_caracteres(oracion,fichero_reemplazo):
     fichero_reemplazo.seek(0)
     oracion_final=oracion
     lista=leer_reemplazo(fichero_reemplazo)
-    while (lista != ['']):
+    while (lista!=['']):
         char_a_reemplazar,reemplazo=lista
         char_a_reemplazar=str(char_a_reemplazar)
         if char_a_reemplazar in oracion:
@@ -112,16 +115,16 @@ def merge_files(filein,fileout):
 
 file_reemplazo=open("reemplazo.csv","r+",encoding = "utf8")
 
-procesa_archivo("La araña negra - tomo 1.txt",file_reemplazo)
-procesa_archivo("las 1000 noches y 1 noche.txt",file_reemplazo)
-procesa_archivo("Cuentos.txt",file_reemplazo)
+procesa_archivo("prueba.txt",file_reemplazo)
+#procesa_archivo("las 1000 noches y 1 noche.txt",file_reemplazo)
+#procesa_archivo("Cuentos.txt",file_reemplazo)
 
-merge_files("La araña negra - tomo 1.txt_out","palabras.txt")
-merge_files("Las 1000 Noches y 1 Noche.txt_out","palabras.txt")
-merge_files("Cuentos.txt_out","palabras.txt")
+#merge_files("La araña negra - tomo 1.txt_out","palabras.txt")
+#merge_files("Las 1000 Noches y 1 Noche.txt_out","palabras.txt")
+#merge_files("Cuentos.txt_out","palabras.txt")
 
-filein=open("palabras.txt","r")
-elimina_duplicados_y_ordena(filein,"palabras.txt_out")
+#filein=open("palabras.txt","r")
+#elimina_duplicados_y_ordena(filein,"palabras.txt_out")
 
-filein.close()
+#filein.close()
 file_reemplazo.close()

@@ -23,7 +23,7 @@ def leer_reemplazo(fichero_reemplazo):
 
 def obtiene_lista_palabras_validas(oracion):
     t = ""
-    parametro = "!?¡¿#*=<>;0123456789!?/\[]{}().,:\-\"\''"
+    parametro = "\_!?¡¿#*=<>;0123456789!?/\[]{}().,:\-\"\''"
     for registro in oracion:
         for c in registro:
             if not c in parametro:
@@ -69,6 +69,8 @@ def elimina_duplicados_y_ordena(fichero_desordenado,fichero_salida):
     for item in lista:
         fsalida.write(item)
 
+    fsalida.close()
+
 def procesa_archivo(fichero_entrada,file_reemplazo):
 
     fichero_salida=fichero_entrada + "_out"
@@ -92,13 +94,34 @@ def procesa_archivo(fichero_entrada,file_reemplazo):
     fichero_desordenado.close
     fichero_temporal.close()
 
+def merge_files(filein,fileout):
+    fsalida=open(fileout,"w")
+    fsalida.close()
+
+    fsalida=open(fileout,"a")
+    fentrada=open(filein,"r")
+
+    for item in fentrada:
+        fsalida.write(item)
+
+    fentrada.close()
+    fsalida.close()
 
 
 #-----------------------------------------------------------------------------------------------------------------#
 
 file_reemplazo=open("reemplazo.csv","r+",encoding = "utf8")
 
-procesa_archivo("prueba.txt",file_reemplazo)
+procesa_archivo("La araña negra - tomo 1.txt",file_reemplazo)
+procesa_archivo("las 1000 noches y 1 noche.txt",file_reemplazo)
+procesa_archivo("Cuentos.txt",file_reemplazo)
 
+merge_files("La araña negra - tomo 1.txt_out","palabras.txt")
+merge_files("Las 1000 Noches y 1 Noche.txt_out","palabras.txt")
+merge_files("Cuentos.txt_out","palabras.txt")
 
+filein=open("palabras.txt","r")
+elimina_duplicados_y_ordena(filein,"palabras.txt_out")
+
+filein.close()
 file_reemplazo.close()

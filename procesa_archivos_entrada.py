@@ -115,7 +115,7 @@ def merge_files(filein,fileout):
 file_reemplazo=open("reemplazo.csv","r+")
 
 procesa_archivo("archivo1.txt",file_reemplazo)
-#procesa_archivo("archivo23.txt",file_reemplazo)
+#procesa_archivo("archivo2.txt",file_reemplazo)
 #procesa_archivo("archivo3.txt",file_reemplazo)
 
 #merge_files("archivo1.txt_out","palabras.txt")

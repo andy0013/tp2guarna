@@ -22,7 +22,7 @@ def leer_reemplazo(fichero_reemplazo):
 
 def obtiene_lista_palabras_validas(oracion):
     t = ""
-    parametro = "º\_!?¡¿#*=<>;0123456789!?/\[]{}().,:\-\"\''"
+    parametro = "ªº\_!?¡¿#*=<>;0123456789!?/\[]{}().,:\-\"\''"
     for registro in oracion:
         for c in registro:
             if not c in parametro:
@@ -54,7 +54,7 @@ def recorre_archivo(filename,valor):
     return False
 
 def elimina_duplicados_y_ordena(fichero_desordenado,fichero_salida):
-    fsalida=open(fichero_salida,"w+")
+    fsalida=open(fichero_salida,"w+",encoding="utf8")
     fichero_desordenado.seek(0)
 
     for registro in fichero_desordenado:
@@ -66,7 +66,7 @@ def elimina_duplicados_y_ordena(fichero_desordenado,fichero_salida):
     lista.sort()
 
     fsalida.close()
-    fsalida=open(fichero_salida,"w+")
+    fsalida=open(fichero_salida,"w+",encoding="utf8")
 
     for item in lista:
         fsalida.write(item)
@@ -76,9 +76,9 @@ def elimina_duplicados_y_ordena(fichero_desordenado,fichero_salida):
 def procesa_archivo(fichero_entrada,file_reemplazo):
 
     fichero_salida=fichero_entrada + "_out"
-    fichero_entrada=open(fichero_entrada,"r+")
-    fichero_desordenado=open("archivo_desordenado.txt","w+")
-    fichero_temporal=open("tmp.txt","w+")
+    fichero_entrada=open(fichero_entrada,"r+",encoding="utf8")
+    fichero_desordenado=open("archivo_desordenado.txt","w+",encoding="utf8")
+    fichero_temporal=open("tmp.txt","w+",encoding="utf8")
 
     procesa_archivo_entrada(fichero_entrada,fichero_temporal)
     oracion=leer_archivo_entrada(fichero_temporal)
@@ -97,11 +97,11 @@ def procesa_archivo(fichero_entrada,file_reemplazo):
     fichero_temporal.close()
 
 def merge_files(filein,fileout):
-    fsalida=open(fileout,"w")
+    fsalida=open(fileout,"w+",encoding="utf8")
     fsalida.close()
 
-    fsalida=open(fileout,"a")
-    fentrada=open(filein,"r")
+    fsalida=open(fileout,"a",encoding="utf8")
+    fentrada=open(filein,"r",encoding="utf8")
 
     for item in fentrada:
         fsalida.write(item)
@@ -112,17 +112,17 @@ def merge_files(filein,fileout):
 
 #-----------------------------------------------------------------------------------------------------------------#
 
-file_reemplazo=open("reemplazo.csv","r+")
+file_reemplazo=open("reemplazo.csv","r+",encoding="utf8")
 
 procesa_archivo("archivo1.txt",file_reemplazo)
-#procesa_archivo("archivo2.txt",file_reemplazo)
-#procesa_archivo("archivo3.txt",file_reemplazo)
+procesa_archivo("archivo2.txt",file_reemplazo)
+procesa_archivo("archivo3.txt",file_reemplazo)
 
-#merge_files("archivo1.txt_out","palabras.txt")
-#merge_files("archivo2.txt_out","palabras.txt")
-#merge_files("archivo3.txt_out","palabras.txt")
+merge_files("archivo1.txt_out","palabras.txt")
+merge_files("archivo2.txt_out","palabras.txt")
+merge_files("archivo3.txt_out","palabras.txt")
 
-#filein=open("palabras.txt","r")
-#elimina_duplicados_y_ordena(filein,"palabras.txt_out")
+filein=open("palabras.txt","r")
+elimina_duplicados_y_ordena(filein,"palabras.txt_out")
 
 #filein.close()

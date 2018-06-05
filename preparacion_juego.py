@@ -1,7 +1,6 @@
 import re
 import precondiciones
 import random
-from configuracion import diccionario_configuracion
 
 def obtener_numero(mensaje):
     """Obtiene un numero y verifica que no se ingresen letras. Realizado por andres"""

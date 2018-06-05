@@ -1,50 +1,19 @@
-import texto
+import procesa_archivos_entrada
 
-def obtiene_lista_palabras(oraciones):
-    """Obtiene una lista de palabras del texto suministrado por la catedra. Realizada por Leandro"""
-    t = ""
-    parametro = "<>;0123456789!?/\[]{}().,:\-\"\'"
-    for oracion in oraciones :
-        for c in oracion:
-            if not c in parametro:
-                t += c.upper()
-    lista = t.split(" ")
-    return sorted(lista)
+def crea_diccionario_de_palabras(filename):
 
-def eliminar_repetidas(lista):
-    """Elimina las palabras repetidas. Realizada por Leandro"""
-    final = []
-    for i in lista:
-        laux=elimina_tildes(i)
-        if not laux in final:
-            final.append(laux)
-    return sorted(final)
+    diccionario={}
 
-def frecuencia_de_palabras(palabras):
-    """Crea un diccionario a partir de la lista de palbras y la frecuenccia de dichas palabras. Realizada por Leandro."""
-    diccionario = {}
+    for item in filename:
 
-    for i in palabras:
-        if i not in diccionario.keys():
-            diccionario[i]=0
-        diccionario[i] += 1
-    del diccionario['']
-    return diccionario
+        key=len(item)
+        if not key in diccionario.keys():
+            diccionario=[]
 
-def precondiciones():
-    """Devuelve una lista de palabras en mayusculas y sin acentos. Realizada por Leandro"""
-    oraciones = texto.obtener_texto()
-    palabrasEnTexto = obtiene_lista_palabras(oraciones)
-    diccionario = frecuencia_de_palabras(palabrasEnTexto)
-    listaSinRepetidas=eliminar_repetidas(palabrasEnTexto)
-    print("#################################### El AHORCADO ################################")
-    print("A continuacion se imprimira el diccionario de palabras y la frecuencia con la que aparecen en el texto")
-    print("Las palabras se convirtieron a mayusculas y se le removieron los acentos para facilitar el juego")
-    laux=sorted(diccionario.items(),key=lambda x:x[0])
-    for tupla in laux:
-        print(tupla)
+        diccionario[key].append(item)
 
-    print("#################################################################################")
-    print("Cantidad de palabras en el diccionario: ", len(diccionario))
-    return listaSinRepetidas
+    print("A continuacion se imprimiran por cada longitud de palabra las palabras que hay en el diccionario de palabras")
+    print(diccionario.items())
 
+filename=open("palabras.txt","r",encoding="utf8")
+crea_diccionario_de_palabras()

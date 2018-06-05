@@ -1,6 +1,5 @@
 import preparacion_juego
 import nueva_partida
-from configuracion import diccionario_configuracion
 
 def datos_jugador(jugador,jugadores,resumen=False):
     """Esta funcion muestra los datos acumulados de los jugadores y genera un resumen para mostrar al final de la partida.

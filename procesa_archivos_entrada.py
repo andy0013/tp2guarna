@@ -1,4 +1,3 @@
-
 def remueve_valores_de_lista(lista, val):
         while val in lista:
             lista.remove(val)
@@ -113,18 +112,17 @@ def merge_files(filein,fileout):
 
 #-----------------------------------------------------------------------------------------------------------------#
 
-file_reemplazo=open("reemplazo.csv","r+",encoding = "cp1252")
+file_reemplazo=open("reemplazo.csv","r+")
 
-procesa_archivo("prueba.txt",file_reemplazo)
-#procesa_archivo("las 1000 noches y 1 noche.txt",file_reemplazo)
-#procesa_archivo("Cuentos.txt",file_reemplazo)
+procesa_archivo("archivo1.txt",file_reemplazo)
+#procesa_archivo("archivo2.txt",file_reemplazo)
+#procesa_archivo("archivo3.txt",file_reemplazo)
 
-#merge_files("La araña negra - tomo 1.txt_out","palabras.txt")
-#merge_files("Las 1000 Noches y 1 Noche.txt_out","palabras.txt")
-#merge_files("Cuentos.txt_out","palabras.txt")
+#merge_files("archivo1.txt_out","palabras.txt")
+#merge_files("archivo2.txt_out","palabras.txt")
+#merge_files("archivo3.txt_out","palabras.txt")
 
 #filein=open("palabras.txt","r")
 #elimina_duplicados_y_ordena(filein,"palabras.txt_out")
 
 #filein.close()
-file_reemplazo.close()

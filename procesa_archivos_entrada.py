@@ -42,8 +42,8 @@ def reemplaza_caracteres(oracion,fichero_reemplazo):
     while (lista!=['']):
         char_a_reemplazar,reemplazo=lista
         char_a_reemplazar=str(char_a_reemplazar)
-        if char_a_reemplazar in oracion:
-            oracion_final=oracion.replace(char_a_reemplazar,reemplazo)
+        if char_a_reemplazar in oracion_final:
+            oracion_final=oracion_final.replace(char_a_reemplazar,reemplazo)
         lista=leer_reemplazo(fichero_reemplazo)
     return oracion_final
 
@@ -113,7 +113,7 @@ def merge_files(filein,fileout):
 
 #-----------------------------------------------------------------------------------------------------------------#
 
-file_reemplazo=open("reemplazo.csv","r+",encoding = "utf8")
+file_reemplazo=open("reemplazo.csv","r+",encoding = "cp1252")
 
 procesa_archivo("prueba.txt",file_reemplazo)
 #procesa_archivo("las 1000 noches y 1 noche.txt",file_reemplazo)

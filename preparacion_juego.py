@@ -1,6 +1,7 @@
 import re
 import precondiciones
 import random
+import configuracion
 
 def obtener_numero(mensaje):
     """Obtiene un numero y verifica que no se ingresen letras. Realizado por andres"""
@@ -23,7 +24,7 @@ def ingresar_nombre_jugadores():
     """Solicita el numero de jugadores y sus nombres. Verifica que la cantidad de jugaddores
     no supere los 10 y devuelve la lista de jugadores ordenadas aleatororeamente. Realizada por andres"""
     seguir = True
-    MAX_JUGADORES=diccionario_configuracion['MAX_USUARIOS']
+    MAX_JUGADORES=configuracion.diccionario_configuracion['MAX_USUARIOS']
     listaJugadores = []
 
     while seguir:
@@ -53,7 +54,7 @@ def obtener_cantidad_de_letras_en_palabra():
     "funcion que pide a los jugadores la longitud de la palabra a adivinar , corrobora que sea mayorigual a 5\
     una vez que tiene el valor, devuelve el valor de la longitud.Realizado por andres"
     seguir = True
-    LONG_PALABRA_MINIMA=diccionario_configuracion['LONG_PALABRA_MIN']
+    LONG_PALABRA_MINIMA=configuracion.diccionario_configuracion['LONG_PALABRA_MIN']
     while seguir:
         letrasEnPalabra = obtener_numero("Ingrese la cantidad de letras en la palabra: ")
         if letrasEnPalabra >= LONG_PALABRA_MINIMA:
@@ -61,24 +62,6 @@ def obtener_cantidad_de_letras_en_palabra():
         else:
             print("La cantidad de letras en la palabra a adivinar debe ser mayor que {0}".format(LONG_PALABRA_MINIMA))
     return letrasEnPalabra
-
-def crear_diccionario_palabras_longitud(listaPalabrasPotenciales):
-    """Esta funcion crea un diccionario cuyos keys son las longitudes de palabra y contiene una lista desde
-    la cual se van a obtener las palabras a adivinar. a partir de este diccionario se verifca si las palabras
-    de x longitud alcanzan para la cantidad de jugadores. Realizado por andres"""
-
-    diccionarioLongitudPalabras={}
-
-    for palabra in listaPalabrasPotenciales:
-        key=len(palabra)
-
-        if key not in diccionarioLongitudPalabras.keys():
-            diccionarioLongitudPalabras[key]=[]
-
-        diccionarioLongitudPalabras[key].append(palabra)
-
-    return diccionarioLongitudPalabras
-
 
 def obtiene_lista_palabras_a_adivinar(diccionarioLongitudPalabras,cantidadJugadores):
     """Esta funcion pide que se ingrese el tamaño de la palabra a adivinar y si para esa
@@ -106,9 +89,7 @@ def generar_lista_de_palabras_a_adivinar(listaDeJugadores):
     """Esta funcion llama al modulo de precondiciones y llama a las funciones que generan la lista de palabras.
     se usa en la primera ronda y en las subsiguientes rondas, cuando es llamada desde main. Realizado por andres"""
 
-    listaDePalabrasPotenciales=precondiciones.precondiciones()
-    diccionarioLongitudPalabras=crear_diccionario_palabras_longitud(listaDePalabrasPotenciales)
-    listaDePalabrasAAdivinar=obtiene_lista_palabras_a_adivinar(diccionarioLongitudPalabras,len(listaDeJugadores))
+    listaDePalabrasAAdivinar=obtiene_lista_palabras_a_adivinar(precondiciones.diccionarioLongitudPalabras,len(listaDeJugadores))
 
     return listaDePalabrasAAdivinar
 

@@ -1,5 +1,6 @@
 import preparacion_juego
 import nueva_partida
+import configuracion
 
 def datos_jugador(jugador,jugadores,resumen=False):
     """Esta funcion muestra los datos acumulados de los jugadores y genera un resumen para mostrar al final de la partida.
@@ -142,10 +143,10 @@ turnos=['pedro','juan']
 Representan nombre,cantidad de partidas totales,aciertos totales,desaciertos totales,puntaje total
 acumulados={'juan':[0,0,0,0],'pedro':[0,0,0,0]}
 """
-MAX_DESACIERTOS=diccionario_configuracion['MAX_DESACIERTOS']
-PUNTOS_ACIERTOS=diccionario_configuracion['PUNTOS_ACIERTOS']
-PUNTOS_DESACIERTOS=diccionario_configuracion['PUNTOS_DESACIERTOS']
-PUNTOS_ADIVINA=diccionario_configuracion['PUNTOS_ADIVINA']
+MAX_DESACIERTOS=configuracion.diccionario_configuracion['MAX_DESACIERTOS']
+PUNTOS_ACIERTOS=configuracion.diccionario_configuracion['PUNTOS_ACIERTOS']
+PUNTOS_DESACIERTOS=configuracion.diccionario_configuracion['PUNTOS_DESACIERTOS']
+PUNTOS_ADIVINA=configuracion.diccionario_configuracion['PUNTOS_ADIVINA']
 
 salir=False
 
@@ -170,8 +171,10 @@ while (salir != True):
             mostrar_estado_actual(idx,listaLetrasAcertadas,listaLetrasArriesgadas)
 
             letra=input("Ingrese una letra:")
+            letra=letra.upper()
             while (len(letra) > 1 or not letra.isalpha()):
                 letra=input("Ingrese una letra:")
+                letra=letra.upper()
 
             if letra in palabraAAdivinar:
                 """Esta funcion ademas de insertar las letras en las posiciones incrementa los aciertos y el puntaje"""

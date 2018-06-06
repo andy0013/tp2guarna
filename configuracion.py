@@ -25,6 +25,6 @@ def leer_archivo_configuracion(file):
 
 file=open("configuracion.txt","r")
 diccionario_configuracion=leer_archivo_configuracion(file)
-imprimir_configuracion(diccionario_configuracion)
+file.close()
 
 

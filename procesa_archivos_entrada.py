@@ -116,15 +116,22 @@ def merge_files(filein,fileout):
 
 file_reemplazo=open("reemplazo.csv","r+",encoding="utf8")
 
+print("Procesando archivo1.txt...")
 procesa_archivo("archivo1.txt",file_reemplazo)
+
+print("Procesando archivo2.txt...")
 procesa_archivo("archivo2.txt",file_reemplazo)
+
+print("Procesando archivo3.txt...")
 procesa_archivo("archivo3.txt",file_reemplazo)
 
 merge_files("archivo1.txt_out","palabras.txt")
 merge_files("archivo2.txt_out","palabras.txt")
 merge_files("archivo3.txt_out","palabras.txt")
 
+print("Procesando palabras.txt...")
 filein=open("palabras.txt","r")
 elimina_duplicados_y_ordena(filein,"palabras.txt_out")
 
-#filein.close()
+filein.close()
+file_reemplazo.close()

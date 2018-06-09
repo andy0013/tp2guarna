@@ -129,6 +129,9 @@ def actualiza_jugadores(jugadores,turnos,acumulados):
         jugadores[jugador][3]=acumulados[jugador][3]
         i+=1
 
+def archivardatos (archivo, nombreDeJugador, totalDeAciertos,  totalDeDesaciertos, puntajeTotal, palabras):
+    return archivo.write(nombreDeJugador + "," + totalDeAciertos +","+ totalDeDesaciertos + "," + puntajeTotal + "," + palabras + "\n")
+
 """-------------------------------------------Fin de funciones-----------------------------------------------"""
 
 """Me respondieron de la catedra que los intentos no se deben tener encuenta"""
@@ -149,6 +152,9 @@ PUNTOS_DESACIERTOS=configuracion.diccionario_configuracion['PUNTOS_DESACIERTOS']
 PUNTOS_ADIVINA=configuracion.diccionario_configuracion['PUNTOS_ADIVINA']
 
 salir=False
+
+archivo11 = open('partida.csv', "w")
+palabrasUsadas = {}
 
 jugadores,turnos,acumulados=preparacion_juego.preparacion_juego()
 
@@ -205,6 +211,12 @@ while (salir != True):
     for jugador in jugadores.keys():
          datos_jugador(jugador,jugadores,True)
 
+    for jugador in jugadores:
+        if not jugador in palabrasUsadas:
+            palabrasUsadas[jugador] = jugadores[jugador][0]
+        else:
+            palabrasUsadas[jugador] += (" " + jugadores[jugador][0])
+
     while True:
         nuevaPartida=input("Quiere jugar una nueva partida?\n")
 
@@ -214,6 +226,9 @@ while (salir != True):
             actualiza_jugadores(jugadores,turnos,acumulados)
             break
         elif nuevaPartida in ["n","N","no","NO"]:
+            for jugador in jugadores:
+                archivardatos(archivo11, jugador, str(jugadores[jugador][1]), str(jugadores[jugador][2]),
+                              str(jugadores[jugador][3]), str(palabrasUsadas[jugador]))
             print("gracias por volar con LOS Nocheros!!!!")
             salir=True
             break

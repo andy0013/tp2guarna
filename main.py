@@ -130,7 +130,8 @@ def actualiza_jugadores(jugadores,turnos,acumulados):
         i+=1
 
 def archivardatos (archivo, nombreDeJugador, totalDeAciertos,  totalDeDesaciertos, puntajeTotal, palabras):
-    return archivo.write(nombreDeJugador + "," + totalDeAciertos +","+ totalDeDesaciertos + "," + puntajeTotal + "," + palabras + "\n")
+    return archivo.write("Jugador: "+ nombreDeJugador + "," + " Aciertos: " + totalDeAciertos +","+ " Desaciertos: " +
+            totalDeDesaciertos + "," + " Puntaje Total: " + puntajeTotal + "," + " Palbras Usadas: " + palabras + "\n")
 
 """-------------------------------------------Fin de funciones-----------------------------------------------"""
 
@@ -213,9 +214,13 @@ while (salir != True):
 
     for jugador in jugadores:
         if not jugador in palabrasUsadas:
-            palabrasUsadas[jugador] = jugadores[jugador][0]
+            palabrasUsadas[jugador] = [jugadores[jugador][0], jugadores[jugador][1], jugadores[jugador][2], jugadores[jugador][3]]
         else:
-            palabrasUsadas[jugador] += (" " + jugadores[jugador][0])
+            palabrasUsadas[jugador][0] += ("  " + jugadores[jugador][0])
+            palabrasUsadas[jugador][1] += jugadores[jugador][1]
+            palabrasUsadas[jugador][2] += jugadores[jugador][2]
+            palabrasUsadas[jugador][3] += jugadores[jugador][3]
+
 
     while True:
         nuevaPartida=input("Quiere jugar una nueva partida?\n")
@@ -227,8 +232,8 @@ while (salir != True):
             break
         elif nuevaPartida in ["n","N","no","NO"]:
             for jugador in jugadores:
-                archivardatos(archivo11, jugador, str(jugadores[jugador][1]), str(jugadores[jugador][2]),
-                              str(jugadores[jugador][3]), str(palabrasUsadas[jugador]))
+                archivardatos(archivo11, jugador, str(palabrasUsadas[jugador][1]), str(palabrasUsadas[jugador][2]),
+                              str(palabrasUsadas[jugador][3]), str(palabrasUsadas[jugador][0]))
             print("gracias por volar con LOS Nocheros!!!!")
             salir=True
             break

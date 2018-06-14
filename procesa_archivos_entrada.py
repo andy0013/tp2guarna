@@ -1,10 +1,12 @@
 import configuracion
 
 def remueve_valores_de_lista(lista, val):
+        """remueve valores pasados por parametro de una lista"""
         while val in lista:
             lista.remove(val)
 
 def procesa_archivo_entrada(fichero_entrada,fichero_temporal):
+    """ Esta funcion quita los renglones en blanco de los archivos, ya que si no no los podia leer sin que parezca un EOF"""
 
     for registro in fichero_entrada:
        if not registro.isspace():
@@ -12,17 +14,22 @@ def procesa_archivo_entrada(fichero_entrada,fichero_temporal):
     fichero_temporal.seek(0)
 
 def leer_archivo_entrada(fichero_temporal):
+    """Le el archivo de entrada y devuelve un registro"""
 
     registro=fichero_temporal.readline().rstrip("\n").lstrip("\n")
     return registro
 
 def leer_reemplazo(fichero_reemplazo):
+    """Esta funcion lee los registros del archivo reemplazo.csv para reemplazar los valores en el texto"""
     lista=fichero_reemplazo.readline().rstrip().split(",")
     if (not lista):
         return False
     return lista
 
 def obtiene_lista_palabras_validas(oracion):
+    """Esta funcion genera palabras validas funciona como complementos del archivo reemplazo.csv, ya que no hay que
+    reemplazar nada"""
+
     t = ""
     parametro = "ªº\_!?¡¿#*=<>;0123456789!?/\[]{}().,:\-\"\''"
     for registro in oracion:
@@ -37,6 +44,7 @@ def obtiene_lista_palabras_validas(oracion):
     return lista
 
 def reemplaza_caracteres(oracion,fichero_reemplazo):
+    """Reemplaza strings del archivo reemplazo.csv en el texto"""
     fichero_reemplazo.seek(0)
     oracion_final=oracion
     lista=leer_reemplazo(fichero_reemplazo)
@@ -49,6 +57,8 @@ def reemplaza_caracteres(oracion,fichero_reemplazo):
     return oracion_final
 
 def recorre_archivo(filename,valor):
+    """Esta es una funcion que recorre un archivo y si el registro coincide con valor devuelve true. Se usa para eliminar
+    duplicados"""
     filename.seek(0)
     for registro in filename:
         if registro==valor:
@@ -56,6 +66,8 @@ def recorre_archivo(filename,valor):
     return False
 
 def elimina_duplicados_y_ordena(fichero_desordenado,fichero_salida):
+    """Elimina las palabras duplicadas de un archivo y las ordena alfabeticamente.
+    Segun lo respondido por la catedra las palabras si se pueden subir a memoria y ordenar"""
     fsalida=open(fichero_salida,"w+",encoding="utf8")
     fichero_desordenado.seek(0)
 
@@ -76,6 +88,7 @@ def elimina_duplicados_y_ordena(fichero_desordenado,fichero_salida):
     fsalida.close()
 
 def procesa_archivo(fichero_entrada,file_reemplazo):
+    """funcion que procesa cada archivo de entrada."""
 
     fichero_salida=fichero_entrada + "_out"
     fichero_entrada=open(fichero_entrada,"r+",encoding="utf8")
@@ -99,6 +112,8 @@ def procesa_archivo(fichero_entrada,file_reemplazo):
     fichero_temporal.close()
 
 def merge_files(filein,fileout):
+    """dado un archivo de entrada hace un un merge un append en un archivo de salida para hacer un merge de las
+    palabras obtenidas en el procesamiento de los archivos de entrada"""
     fsalida=open(fileout,"w+",encoding="utf8")
     fsalida.close()
 

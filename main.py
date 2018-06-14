@@ -129,9 +129,9 @@ def actualiza_jugadores(jugadores,turnos,acumulados):
         jugadores[jugador][3]=acumulados[jugador][3]
         i+=1
 
-def archivardatos (archivo, nombreDeJugador, totalDeAciertos,  totalDeDesaciertos, puntajeTotal, palabras):
-    return archivo.write("Jugador: "+ nombreDeJugador + "," + " Aciertos: " + totalDeAciertos +","+ " Desaciertos: " +
-            totalDeDesaciertos + "," + " Puntaje Total: " + puntajeTotal + "," + " Palbras Usadas: " + palabras + "\n")
+def archivardatos (archivo, nombreDeJugador,partidasJugadas,totalDeAciertos,totalDeDesaciertos,puntajeTotal, palabras):
+    """Esta funcion guarda en un archvio partida.csv las estadisticas de las partidas"""
+    return archivo.write("Jugador: "+ nombreDeJugador + "," + " Partidas jugadas: " + partidasJugadas + "," + " Aciertos: " + totalDeAciertos +","+ " Desaciertos: " + totalDeDesaciertos + "," + " Puntaje Total: " + puntajeTotal + "," + " Palbras Usadas: " + palabras + "\n")
 
 """-------------------------------------------Fin de funciones-----------------------------------------------"""
 
@@ -156,7 +156,6 @@ salir=False
 
 archivo11 = open('partida.csv', "w")
 palabrasUsadas = {}
-
 jugadores,turnos,acumulados=preparacion_juego.preparacion_juego()
 
 while (salir != True):
@@ -206,6 +205,7 @@ while (salir != True):
 
     if(ganoEljugador):
         print("El jugador {0} gano la partida".format(jugador))
+        turnos.append(jugador)
     else:
         print("Gano la maquina")
 
@@ -214,26 +214,23 @@ while (salir != True):
 
     for jugador in jugadores:
         if not jugador in palabrasUsadas:
-            palabrasUsadas[jugador] = [jugadores[jugador][0], jugadores[jugador][1], jugadores[jugador][2], jugadores[jugador][3]]
+            palabrasUsadas[jugador] = jugadores[jugador][0]
         else:
-            palabrasUsadas[jugador][0] += ("  " + jugadores[jugador][0])
-            palabrasUsadas[jugador][1] += jugadores[jugador][1]
-            palabrasUsadas[jugador][2] += jugadores[jugador][2]
-            palabrasUsadas[jugador][3] += jugadores[jugador][3]
+            palabrasUsadas[jugador] += ("," + jugadores[jugador][0])
 
+    acumula_valores(jugadores,acumulados)
 
     while True:
         nuevaPartida=input("Quiere jugar una nueva partida?\n")
-
         if nuevaPartida in ["s","S","si","SI"]:
-            acumula_valores(jugadores,acumulados)
-            turnos=nueva_partida.nueva_partida(acumulados)
+            turnosAux=nueva_partida.nueva_partida(acumulados)
+            turnosAux.remove(turnos[0])
+            turnos.extend(turnosAux)
             actualiza_jugadores(jugadores,turnos,acumulados)
             break
         elif nuevaPartida in ["n","N","no","NO"]:
             for jugador in jugadores:
-                archivardatos(archivo11, jugador, str(palabrasUsadas[jugador][1]), str(palabrasUsadas[jugador][2]),
-                              str(palabrasUsadas[jugador][3]), str(palabrasUsadas[jugador][0]))
+                archivardatos(archivo11,jugador,str(acumulados[jugador][0]),str(acumulados[jugador][1]),str(acumulados[jugador][2]),str(acumulados[jugador][3]),palabrasUsadas[jugador])
             print("gracias por volar con LOS Nocheros!!!!")
             salir=True
             break

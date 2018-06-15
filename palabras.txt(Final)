@@ -1,0 +1,51 @@
+#recibe 3 textos,ordenados alfabeticamente,y que en cada linea haya una palabra
+# devuelve un solo texto manteniendo las palabras recibidas ordenadamente
+
+def leer(archivo):
+    linea = archivo.readline()
+    if linea:
+        return linea.strip('\n')
+    else:
+        return MAX
+
+def agregarA(NuevoL,palabra):
+    NuevoL.write(palabra + '\n')  
+
+def mergue(txt1,txt2,txt3,nuevo):
+    palabra1 = leer(txt1)
+    palabra2 = leer(txt2)
+    palabra3 = leer(txt3)
+    L = [palabra1,palabra2,palabra3]
+    
+    while palabra1 != MAX or palabra2 != MAX or palabra3 != MAX:
+        L.sort()
+        
+        if (L[0] == MAX):
+            break
+        
+        elif (L[0] == palabra1):
+            agregarA(nuevo,palabra1)
+            palabra1 = leer(txt1)
+            L = [palabra1,palabra2,palabra3]
+
+        elif (L[0] == palabra2):
+            agregarA(nuevo,palabra2)
+            palabra2 = leer(txt2)
+            L = [palabra1,palabra2,palabra3]
+
+        else:
+            agregarA(nuevo,palabra3)
+            palabra3 = leer(txt3)
+            L = [palabra1,palabra2,palabra3]
+
+        
+MAX = 'zzz'
+T = open('uno.txt','r')
+TT = open('dos.txt','r')
+TTT = open('tres.txt','r')
+N = open('palabras.txt','w')
+mergue(T,TT,TTT,N)
+T.close()
+TT.close()
+TTT.close()
+N.close()

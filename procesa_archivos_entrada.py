@@ -111,19 +111,45 @@ def procesa_archivo(fichero_entrada,file_reemplazo):
     fichero_desordenado.close
     fichero_temporal.close()
 
-def merge_files(filein,fileout):
-    """dado un archivo de entrada hace un un merge un append en un archivo de salida para hacer un merge de las
-    palabras obtenidas en el procesamiento de los archivos de entrada"""
+def grabar_nuevo(fileout,valor):
+    fileout.write(valor+"\n")
+
+def merge_files(filein1,filein2,fileout):
+    """Proceso de merge de los archivos de entrada"""
+
     fsalida=open(fileout,"w+",encoding="utf8")
-    fsalida.close()
+    fentrada1=open(filein1,"r",encoding="utf8")
+    fentrada2=open(filein2,"r",encoding="utf8")
 
-    fsalida=open(fileout,"a",encoding="utf8")
-    fentrada=open(filein,"r",encoding="utf8")
+    palabra1=leer_archivo_entrada(fentrada1)
+    palabra2=leer_archivo_entrada(fentrada2)
 
-    for item in fentrada:
-        fsalida.write(item)
+    while (palabra1 and palabra2):
 
-    fentrada.close()
+        if (palabra1==palabra2):
+            grabar_nuevo(fsalida,palabra1)
+            grabar_nuevo(fsalida,palabra2)
+        elif (palabra1 > palabra2):
+            grabar_nuevo(fsalida,palabra1)
+            grabar_nuevo(fsalida,palabra2)
+        elif (palabra2 > palabra1):
+            grabar_nuevo(fsalida,palabra2)
+            grabar_nuevo(fsalida,palabra1)
+
+        palabra1=leer_archivo_entrada(fentrada1)
+        palabra2=leer_archivo_entrada(fentrada2)
+
+    while(palabra1):
+        grabar_nuevo(fsalida,palabra1)
+        palabra1=leer_archivo_entrada(fentrada1)
+
+    while(palabra2):
+        grabar_nuevo(fsalida,palabra2)
+        palabra2=leer_archivo_entrada(fentrada2)
+
+
+    fentrada1.close()
+    fentrada2.close()
     fsalida.close()
 
 
@@ -140,9 +166,8 @@ procesa_archivo("archivo2.txt",file_reemplazo)
 print("Procesando archivo3.txt...")
 procesa_archivo("archivo3.txt",file_reemplazo)
 
-merge_files("archivo1.txt_out","palabras.txt")
-merge_files("archivo2.txt_out","palabras.txt")
-merge_files("archivo3.txt_out","palabras.txt")
+merge_files("archivo1.txt_out","archivo2.txt_out","fsalida_merge1.txt")
+merge_files("fsalida_merge1.txt","archivo3.txt_out","palabras.txt")
 
 print("Procesando palabras.txt...")
 filein=open("palabras.txt","r")
